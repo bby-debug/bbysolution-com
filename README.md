@@ -2,16 +2,14 @@
 
 Static site (plain HTML/CSS/JS, no build step) for personal branding and SEO.
 
-## What to edit before launch
+**Status: live** at [bbysolution.com](https://bbysolution.com), deployed on Netlify from this repo's `main` branch.
 
-- `index.html`
-  - `<title>` and `<meta name="description">` (top of `<head>`) — this is what shows up in Google search results
-  - The `application/ld+json` block — structured data Google uses to build a knowledge panel. Fill in real `sameAs` links (LinkedIn, X/Twitter, GitHub, etc.)
-  - About section copy
-  - Services section copy (currently drafted around AI process audits — adjust if scope changes)
-  - Case Studies — replace placeholders with 1-2 real engagements once available
-  - `og:image` — add a real 1200x630 image at `assets/img/og-cover.jpg` for link previews
-- `assets/img/favicon.png` — add a favicon
+## Content
+
+- `index.html` holds all copy: About, Expertise, AI Advisory, Career timeline, 8 featured projects, Tools, Education, Awards, Contact, and a full 78-row work-experience attachment table.
+- `<title>` / `<meta name="description">` and the `application/ld+json` Person block (top of `<head>`) drive the Google search snippet / knowledge-panel data — update these first if the pitch changes.
+- `assets/img/favicon.png` and `assets/img/og-cover.jpg` are already in place.
+- To add more profiles (X/Twitter, GitHub, etc.), extend the `sameAs` array in the JSON-LD block.
 
 ## Local preview
 
@@ -22,11 +20,8 @@ No build tools needed. Either:
   npx serve .
   ```
 
-## Deploying to Netlify
+## Deployment
 
-1. Push this folder to a GitHub repo.
-2. In Netlify: **Add new site → Import an existing project → GitHub** → select the repo.
-3. Build settings: leave **build command** empty and **publish directory** as `.` (already set in `netlify.toml`).
-4. Deploy. Netlify gives you a `*.netlify.app` URL immediately.
-5. Once you own a domain: **Site settings → Domain management → Add a domain**, then point the domain's DNS at Netlify (Netlify will show you the exact records — either use Netlify DNS, or add the A/CNAME records at your registrar).
-6. The contact form uses **Netlify Forms** (`data-netlify="true"`) — once deployed on Netlify, submissions show up automatically under **Site settings → Forms**. No backend needed.
+Connected: pushing to `main` on `bby-debug/bbysolution-com` auto-deploys to Netlify, which serves `bbysolution.com` directly (build command empty, publish directory `.` per `netlify.toml`).
+
+The contact form uses **Netlify Forms** (`data-netlify="true"`) — submissions show up under **Site settings → Forms** in the Netlify dashboard. No backend needed.
