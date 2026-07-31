@@ -43,17 +43,18 @@
 </script>
 <style>
   :root{
-    --paper:#EDE9DC;
-    --paper2:#E4DFCF;
-    --ink:#122029;
-    --blueprint:#1C4A69;
-    --blueprint-deep:#0B2B3E;
-    --grid:#9FBFC9;
-    --steel:#4E6672;
-    --signal:#D9922B;
-    --signal-deep:#B5721B;
-    --white:#FAF8F1;
-    --line:#c9c2ac;
+    --paper:#F6F2EA;
+    --paper2:#EEE6D6;
+    --white:#FFFFFF;
+    --ink:#332F28;
+    --ink-soft:#6E6656;
+    --accent:#C2694A;
+    --accent-deep:#A24E33;
+    --accent-soft:#F1DED0;
+    --gold:#B98A3E;
+    --dark:#2A2521;
+    --dark-soft:#C9BEAC;
+    --line:#E4DAC7;
   }
   *{margin:0;padding:0;box-sizing:border-box;}
   html{scroll-behavior:smooth;}
@@ -61,44 +62,31 @@
     background:var(--paper);
     color:var(--ink);
     font-family:'IBM Plex Sans',sans-serif;
-    line-height:1.6;
+    line-height:1.65;
     -webkit-font-smoothing:antialiased;
   }
-  ::selection{background:var(--signal);color:var(--blueprint-deep);}
+  ::selection{background:var(--accent-soft);color:var(--accent-deep);}
 
   .mono{font-family:'IBM Plex Mono',monospace;}
-  h1,h2,h3,.display{font-family:'Oswald',sans-serif;text-transform:uppercase;letter-spacing:0.02em;}
+  h1,h2,h3,.display{font-family:'Oswald',sans-serif;font-weight:600;letter-spacing:-0.01em;}
 
   a{color:inherit;}
-
-  /* subtle drafting grid backdrop */
-  .grid-bg{
-    background-image:
-      linear-gradient(var(--grid) 1px, transparent 1px),
-      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
-    background-size:32px 32px;
-    background-position:-1px -1px;
-    opacity:0.18;
-    position:absolute;
-    inset:0;
-    pointer-events:none;
-  }
 
   .wrap{max-width:1100px;margin:0 auto;padding:0 32px;}
 
   /* ---------- NAV ---------- */
   nav{
     position:sticky;top:0;z-index:50;
-    background:rgba(237,233,220,0.92);
-    backdrop-filter:blur(6px);
+    background:rgba(246,242,234,0.85);
+    backdrop-filter:blur(8px);
     border-bottom:1px solid var(--line);
   }
-  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;}
-  .nav-mark{font-family:'Oswald',sans-serif;font-weight:600;letter-spacing:0.06em;font-size:15px;display:flex;align-items:center;gap:10px;}
-  .nav-mark .id{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--steel);border:1px solid var(--steel);padding:2px 6px;border-radius:2px;}
-  .nav-links{display:flex;gap:28px;font-size:13px;letter-spacing:0.06em;text-transform:uppercase;font-family:'IBM Plex Mono',monospace;}
-  .nav-links a{text-decoration:none;color:var(--steel);border-bottom:1px solid transparent;padding-bottom:2px;transition:.2s;}
-  .nav-links a:hover{color:var(--blueprint);border-color:var(--signal);}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:68px;}
+  .nav-mark{font-family:'Oswald',sans-serif;font-weight:600;font-size:16px;display:flex;align-items:center;gap:10px;}
+  .nav-mark .id{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--accent-deep);background:var(--accent-soft);padding:3px 9px;border-radius:20px;}
+  .nav-links{display:flex;gap:6px;font-size:14px;font-family:'IBM Plex Sans',sans-serif;}
+  .nav-links a{text-decoration:none;color:var(--ink-soft);padding:8px 14px;border-radius:20px;transition:.2s;}
+  .nav-links a:hover{color:var(--accent-deep);background:var(--accent-soft);}
 
   .nav-toggle{
     display:none;
@@ -109,7 +97,7 @@
     cursor:pointer;
     padding:8px;
   }
-  .nav-toggle span{width:22px;height:2px;background:var(--blueprint-deep);}
+  .nav-toggle span{width:22px;height:2px;background:var(--ink);}
 
   @media(max-width:720px){
     .nav-links{
@@ -117,7 +105,7 @@
       flex-direction:column;
       gap:0;
       position:absolute;
-      top:64px;left:0;right:0;
+      top:68px;left:0;right:0;
       background:var(--paper);
       border-bottom:1px solid var(--line);
       max-height:0;
@@ -125,100 +113,107 @@
       transition:max-height .2s ease;
     }
     .nav-links.open{max-height:360px;}
-    .nav-links a{display:block;padding:14px 32px;border-bottom:1px solid var(--line);}
+    .nav-links a{display:block;padding:14px 32px;border-bottom:1px solid var(--line);border-radius:0;}
     .nav-toggle{display:flex;}
   }
 
   /* ---------- HERO ---------- */
   .hero{
     position:relative;
-    background:var(--blueprint-deep);
-    color:var(--white);
+    background:var(--paper);
+    color:var(--ink);
     overflow:hidden;
-    padding:100px 0 80px;
+    padding:120px 0 90px;
   }
-  .hero .grid-bg{opacity:0.14;filter:invert(1);}
+  .hero::before{
+    content:'';position:absolute;top:-140px;right:-140px;
+    width:520px;height:520px;border-radius:50%;
+    background:radial-gradient(circle at 30% 30%, var(--accent-soft), transparent 70%);
+    pointer-events:none;
+  }
   .hero-inner{position:relative;z-index:2;}
   .eyebrow{
     font-family:'IBM Plex Mono',monospace;
-    font-size:12px;letter-spacing:0.18em;text-transform:uppercase;
-    color:var(--signal);
+    font-size:12px;letter-spacing:0.14em;text-transform:uppercase;
+    color:var(--accent-deep);
     display:flex;align-items:center;gap:10px;margin-bottom:22px;
   }
-  .eyebrow::before{content:'';width:26px;height:1px;background:var(--signal);display:inline-block;}
+  .eyebrow::before{content:'';width:26px;height:1px;background:var(--accent);display:inline-block;}
   .hero h1{
-    font-size:clamp(40px,7vw,84px);
-    font-weight:700;
-    line-height:0.98;
-    max-width:900px;
+    font-size:clamp(38px,6.5vw,72px);
+    font-weight:600;
+    line-height:1.08;
+    letter-spacing:-0.02em;
+    max-width:820px;
   }
-  .hero h1 span{color:var(--grid);}
+  .hero h1 span{color:var(--accent);font-style:italic;}
   .hero-sub{
     margin-top:24px;
-    max-width:620px;
+    max-width:600px;
     font-size:17px;
-    color:#CBD9DE;
+    color:var(--ink-soft);
     font-weight:400;
   }
   .hero-stats{
     margin-top:56px;
     display:grid;
     grid-template-columns:repeat(4,1fr);
-    border-top:1px solid rgba(255,255,255,0.18);
-    border-left:1px solid rgba(255,255,255,0.18);
+    gap:14px;
   }
   .hero-stats div{
-    padding:20px 22px;
-    border-right:1px solid rgba(255,255,255,0.18);
-    border-bottom:1px solid rgba(255,255,255,0.18);
+    padding:22px 20px;
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:16px;
   }
-  .hero-stats .num{font-family:'Oswald',sans-serif;font-size:32px;font-weight:600;color:var(--white);}
-  .hero-stats .lbl{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.06em;color:var(--grid);text-transform:uppercase;margin-top:4px;}
+  .hero-stats .num{font-family:'Oswald',sans-serif;font-size:30px;font-weight:600;color:var(--accent-deep);}
+  .hero-stats .lbl{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.06em;color:var(--ink-soft);text-transform:uppercase;margin-top:6px;}
   @media(max-width:720px){.hero-stats{grid-template-columns:repeat(2,1fr);}}
 
   /* ---------- SECTION shared ---------- */
-  section{padding:88px 0;position:relative;}
-  .sec-head{margin-bottom:48px;}
+  section{padding:96px 0;position:relative;}
+  .sec-head{margin-bottom:52px;}
   .sec-tag{
     font-family:'IBM Plex Mono',monospace;
-    font-size:12px;color:var(--signal-deep);letter-spacing:0.12em;text-transform:uppercase;
-    display:flex;align-items:center;gap:10px;margin-bottom:10px;
+    font-size:12px;color:var(--accent-deep);letter-spacing:0.1em;text-transform:uppercase;
+    display:flex;align-items:center;gap:10px;margin-bottom:12px;
   }
-  .sec-tag::before{content:'';width:18px;height:1px;background:var(--signal-deep);}
-  .sec-head h2{font-size:clamp(28px,4vw,42px);color:var(--blueprint-deep);font-weight:600;}
-  .sec-head p{margin-top:12px;max-width:620px;color:var(--steel);font-size:15.5px;}
+  .sec-tag::before{content:'';width:18px;height:1px;background:var(--accent-deep);}
+  .sec-head h2{font-size:clamp(28px,4vw,40px);color:var(--ink);font-weight:600;}
+  .sec-head p{margin-top:14px;max-width:620px;color:var(--ink-soft);font-size:15.5px;}
 
   /* ---------- ABOUT ---------- */
   .about{background:var(--white);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
   .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;}
   .about-grid p{color:var(--ink);font-size:16px;margin-bottom:16px;}
-  .about-grid p:first-child{font-size:19px;font-weight:500;color:var(--blueprint-deep);}
+  .about-grid p:first-child{font-size:19px;font-weight:500;color:var(--ink);font-family:'Oswald',sans-serif;}
   .keywords{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px;}
   .keywords span{
     font-family:'IBM Plex Mono',monospace;font-size:12px;
-    border:1px solid var(--blueprint);color:var(--blueprint);
-    padding:5px 10px;border-radius:2px;
+    background:var(--accent-soft);color:var(--accent-deep);
+    padding:6px 12px;border-radius:20px;
   }
   @media(max-width:800px){.about-grid{grid-template-columns:1fr;}}
 
   /* ---------- EXPERTISE ---------- */
-  .expertise-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
-  .exp-card{background:var(--paper);padding:32px 28px;}
-  .exp-card .tag{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--signal-deep);}
-  .exp-card h3{font-size:21px;margin:12px 0 14px;color:var(--blueprint-deep);}
-  .exp-card p{font-size:14.5px;color:var(--steel);}
+  .expertise-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  .exp-card{background:var(--white);border:1px solid var(--line);border-radius:18px;padding:32px 28px;transition:.2s;}
+  .exp-card:hover{border-color:var(--accent);box-shadow:0 10px 30px rgba(194,105,74,0.12);transform:translateY(-2px);}
+  .exp-card .tag{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--accent-deep);}
+  .exp-card h3{font-size:21px;margin:14px 0 14px;color:var(--ink);}
+  .exp-card p{font-size:14.5px;color:var(--ink-soft);}
   @media(max-width:800px){.expertise-grid{grid-template-columns:1fr;}}
 
   /* ---------- NEW SERVICE (AI advisory) ---------- */
-  .new-service{background:var(--blueprint-deep);color:var(--white);}
-  .new-service .sec-tag{color:var(--signal);}
-  .new-service .sec-tag::before{background:var(--signal);}
-  .new-service .sec-head h2{color:var(--white);}
-  .new-service .sec-head p{color:#B9CBD1;}
-  .service-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,0.18);border:1px solid rgba(255,255,255,0.18);}
-  .service-card{background:var(--blueprint-deep);padding:28px 26px;}
-  .service-card h3{font-size:18px;margin-bottom:10px;text-transform:none;font-family:'Oswald',sans-serif;font-weight:600;}
-  .service-card p{font-size:14px;color:#C7D6DC;}
+  .new-service{background:var(--dark);color:#EFE9DD;}
+  .new-service .sec-tag{color:var(--accent);}
+  .new-service .sec-tag::before{background:var(--accent);}
+  .new-service .sec-head h2{color:#FFFFFF;}
+  .new-service .sec-head p{color:var(--dark-soft);}
+  .service-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  .service-card{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:16px;padding:28px 26px;}
+  .service-card h3{font-size:18px;margin-bottom:10px;font-family:'Oswald',sans-serif;font-weight:600;color:#fff;}
+  .service-card p{font-size:14px;color:var(--dark-soft);}
   @media(max-width:800px){.service-grid{grid-template-columns:1fr;}}
 
   /* ---------- TIMELINE (structural frame) ---------- */
@@ -230,7 +225,7 @@
     position:relative;
     padding-left:64px;
     padding-bottom:52px;
-    border-left:2px solid var(--blueprint);
+    border-left:2px solid var(--line);
     margin-left:19px;
   }
   @media(min-width:721px){.tl-item{padding-left:104px;margin-left:59px;}}
@@ -238,141 +233,162 @@
   .tl-node{
     position:absolute;left:-11px;top:0;
     width:20px;height:20px;border-radius:50%;
-    background:var(--paper);border:2px solid var(--blueprint);
+    background:var(--white);border:2px solid var(--accent);
     display:flex;align-items:center;justify-content:center;
   }
-  .tl-node::after{content:'';width:7px;height:7px;border-radius:50%;background:var(--signal);}
-  .tl-item.current .tl-node{border-color:var(--signal-deep);}
-  .tl-item.current .tl-node::after{background:var(--blueprint);}
-  .tl-period{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--signal-deep);letter-spacing:0.04em;margin-bottom:4px;}
-  .tl-item h3{font-size:20px;color:var(--blueprint-deep);margin-bottom:4px;font-weight:600;text-transform:none;font-family:'Oswald',sans-serif;}
-  .tl-item .company{font-size:14px;color:var(--steel);margin-bottom:10px;font-weight:500;}
+  .tl-node::after{content:'';width:7px;height:7px;border-radius:50%;background:var(--accent);}
+  .tl-item.current .tl-node{border-color:var(--accent-deep);background:var(--accent-soft);}
+  .tl-item.current .tl-node::after{background:var(--accent-deep);}
+  .tl-period{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--accent-deep);letter-spacing:0.04em;margin-bottom:4px;}
+  .tl-item h3{font-size:20px;color:var(--ink);margin-bottom:4px;font-weight:600;font-family:'Oswald',sans-serif;}
+  .tl-item .company{font-size:14px;color:var(--ink-soft);margin-bottom:10px;font-weight:500;}
   .tl-item p.desc{font-size:14.5px;color:var(--ink);max-width:640px;}
 
   /* ---------- PROJECTS ---------- */
   .proj-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;}
   @media(max-width:800px){.proj-grid{grid-template-columns:1fr;}}
+  #projects{position:relative;overflow:hidden;}
+  #projects::before{
+    content:'';position:absolute;inset:0;z-index:0;
+    background-image:url('assets/img/projects/featured-collage.jpg');
+    background-size:contain;background-position:center;background-repeat:no-repeat;
+    opacity:0.34;filter:grayscale(30%) contrast(1.1) brightness(0.55);pointer-events:none;
+  }
+  #projects .wrap{position:relative;z-index:1;}
+  #projects .sec-head{
+    display:inline-block;background:rgba(246,242,234,0.9);
+    padding:18px 22px;border-radius:16px;
+  }
+  #projects .sec-head h2{color:var(--dark);font-weight:700;}
+  #projects .sec-head p{color:var(--ink);font-weight:500;}
+
   .proj-card{
-    background:var(--white);border:1px solid var(--line);
-    padding:24px 26px;position:relative;
+    background:var(--white);border:1px solid var(--line);border-radius:18px;
+    padding:26px 26px;position:relative;
     transition:.2s;
   }
-  .proj-card:hover{border-color:var(--blueprint);transform:translateY(-2px);box-shadow:0 8px 24px rgba(11,43,62,0.08);}
+  .proj-card:hover{border-color:var(--accent);transform:translateY(-3px);box-shadow:0 12px 32px rgba(194,105,74,0.14);}
   .proj-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:10px;}
-  .proj-card h3{font-size:18px;color:var(--blueprint-deep);font-family:'Oswald',sans-serif;font-weight:600;text-transform:none;line-height:1.25;}
-  .proj-year{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--signal-deep);white-space:nowrap;padding-top:3px;}
-  .proj-meta{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--steel);text-transform:uppercase;letter-spacing:0.04em;margin-bottom:12px;}
-  .proj-card p{font-size:14px;color:var(--ink);}
+  .proj-card h3{font-size:18px;color:var(--ink);font-family:'Oswald',sans-serif;font-weight:600;line-height:1.3;}
+  .proj-year{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--accent-deep);white-space:nowrap;padding-top:3px;}
+  .proj-meta{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:0.04em;margin-bottom:12px;}
+  .proj-card p{font-size:14px;color:var(--ink-soft);}
 
   /* ---------- SOFTWARE / EDUCATION ---------- */
   .split-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:56px;}
   @media(max-width:800px){.split-grid{grid-template-columns:1fr;}}
-  .tool-row{display:flex;justify-content:space-between;border-bottom:1px solid var(--line);padding:14px 0;font-family:'IBM Plex Mono',monospace;font-size:13.5px;}
-  .tool-row span:first-child{color:var(--blueprint-deep);font-weight:600;}
-  .tool-row span:last-child{color:var(--steel);text-align:right;}
+  .tool-row{display:flex;justify-content:space-between;border-bottom:1px solid var(--line);padding:14px 2px;font-family:'IBM Plex Mono',monospace;font-size:13.5px;}
+  .tool-row span:first-child{color:var(--ink);font-weight:600;}
+  .tool-row span:last-child{color:var(--ink-soft);text-align:right;}
 
-  .edu-box{border:1px solid var(--blueprint);padding:26px 28px;background:var(--white);}
-  .edu-box .yr{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--signal-deep);}
-  .edu-box h3{font-size:19px;color:var(--blueprint-deep);margin:8px 0 4px;font-family:'Oswald',sans-serif;text-transform:none;font-weight:600;}
-  .edu-box p{font-size:14px;color:var(--steel);}
+  .edu-box{border:1px solid var(--line);border-radius:18px;padding:26px 28px;background:var(--white);}
+  .edu-box .yr{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--accent-deep);}
+  .edu-box h3{font-size:19px;color:var(--ink);margin:10px 0 4px;font-family:'Oswald',sans-serif;font-weight:600;}
+  .edu-box p{font-size:14px;color:var(--ink-soft);}
   .edu-gpa{margin-top:14px;font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--ink);border-top:1px dashed var(--line);padding-top:12px;}
 
   /* ---------- RECOGNITION ---------- */
   .recog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
   @media(max-width:800px){.recog-grid{grid-template-columns:1fr;}}
-  .recog-card{background:var(--blueprint-deep);color:var(--white);padding:28px 24px;position:relative;}
-  .recog-card .yr{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--signal);}
-  .recog-card h3{font-size:16px;margin:10px 0 10px;text-transform:none;font-family:'Oswald',sans-serif;font-weight:600;}
-  .recog-card p{font-size:13.5px;color:#C7D6DC;}
+  .recog-card{background:var(--dark);color:#EFE9DD;padding:28px 24px;border-radius:18px;position:relative;}
+  .recog-card .yr{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--accent);}
+  .recog-card h3{font-size:16px;margin:12px 0 10px;font-family:'Oswald',sans-serif;font-weight:600;color:#fff;}
+  .recog-card p{font-size:13.5px;color:var(--dark-soft);}
 
   /* ---------- CONTACT / TITLE BLOCK ---------- */
-  footer{background:var(--blueprint-deep);color:var(--white);padding:80px 0 0;}
+  footer{background:var(--dark);color:#EFE9DD;padding:88px 0 0;position:relative;overflow:hidden;}
+  footer>*{position:relative;z-index:1;}
+  .footer-portrait{
+    position:absolute;z-index:0;inset:0;width:100%;height:100%;
+    object-fit:contain;object-position:center;
+    opacity:0.13;filter:grayscale(40%) contrast(1.05);
+    pointer-events:none;
+  }
   .contact-inner{text-align:left;}
-  footer h2{font-size:clamp(30px,5vw,54px);color:var(--white);max-width:680px;}
-  footer .sub{color:#B9CBD1;margin-top:16px;max-width:520px;font-size:15.5px;}
-  .contact-links{margin-top:32px;display:flex;gap:16px;flex-wrap:wrap;}
+  footer h2{font-size:clamp(30px,5vw,50px);color:#FFFFFF;max-width:680px;}
+  footer .sub{color:var(--dark-soft);margin-top:16px;max-width:520px;font-size:15.5px;}
+  .contact-links{margin-top:32px;display:flex;gap:14px;flex-wrap:wrap;}
   .contact-links a{
-    font-family:'IBM Plex Mono',monospace;font-size:14px;
-    border:1px solid var(--white);padding:12px 22px;text-decoration:none;color:var(--white);
+    font-family:'IBM Plex Sans',sans-serif;font-size:14px;font-weight:500;
+    border:1px solid rgba(255,255,255,0.25);padding:12px 24px;border-radius:30px;text-decoration:none;color:#fff;
     transition:.2s;
   }
-  .contact-links a.primary{background:var(--signal);border-color:var(--signal);color:var(--blueprint-deep);font-weight:600;}
-  .contact-links a:hover{background:rgba(255,255,255,0.1);}
-  .contact-links a.primary:hover{background:var(--signal-deep);border-color:var(--signal-deep);}
+  .contact-links a.primary{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600;}
+  .contact-links a:hover{background:rgba(255,255,255,0.08);}
+  .contact-links a.primary:hover{background:var(--accent-deep);border-color:var(--accent-deep);}
 
   .contact-form{margin-top:48px;max-width:480px;display:flex;flex-direction:column;gap:14px;}
-  .contact-form label{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;color:var(--grid);display:flex;flex-direction:column;gap:6px;}
+  .contact-form label{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.05em;text-transform:uppercase;color:var(--dark-soft);display:flex;flex-direction:column;gap:6px;}
   .contact-form input,.contact-form textarea{
-    background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.25);
-    color:var(--white);padding:10px 12px;font:14px 'IBM Plex Sans',sans-serif;border-radius:2px;
+    background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.2);
+    color:#fff;padding:12px 14px;font:14px 'IBM Plex Sans',sans-serif;border-radius:10px;
   }
   .contact-form button{
-    align-self:flex-start;font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:600;
-    background:var(--signal);border:1px solid var(--signal);color:var(--blueprint-deep);
-    padding:12px 22px;cursor:pointer;transition:.2s;
+    align-self:flex-start;font-family:'IBM Plex Sans',sans-serif;font-size:14px;font-weight:600;
+    background:var(--accent);border:1px solid var(--accent);color:#fff;
+    padding:12px 26px;border-radius:30px;cursor:pointer;transition:.2s;
   }
-  .contact-form button:hover{background:var(--signal-deep);border-color:var(--signal-deep);}
+  .contact-form button:hover{background:var(--accent-deep);border-color:var(--accent-deep);}
   .hidden{display:none;}
 
   .contact-phone{margin-top:16px;}
   .contact-phone a{
     display:inline-flex;align-items:center;gap:10px;
-    font-family:'IBM Plex Mono',monospace;font-size:14px;letter-spacing:0.02em;
-    color:#CBD9DE;text-decoration:none;transition:.2s;
+    font-family:'IBM Plex Sans',sans-serif;font-size:14px;letter-spacing:0.01em;
+    color:var(--dark-soft);text-decoration:none;transition:.2s;
   }
-  .contact-phone svg{width:16px;height:16px;flex-shrink:0;color:var(--signal);}
-  .contact-phone a:hover{color:var(--white);}
+  .contact-phone svg{width:16px;height:16px;flex-shrink:0;color:var(--accent);}
+  .contact-phone a:hover{color:#fff;}
 
-  /* title block like an engineering drawing sheet */
+  /* title block, softened */
   .title-block{
     margin-top:64px;
-    border-top:1px solid rgba(255,255,255,0.25);
-    padding:20px 0;
+    border-top:1px solid rgba(255,255,255,0.15);
+    padding:24px 0;
   }
   .tb-grid{
-    display:grid;grid-template-columns:repeat(4,1fr);
-    border:1px solid rgba(255,255,255,0.25);
+    display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
+    background:rgba(255,255,255,0.12);border-radius:16px;overflow:hidden;
     font-family:'IBM Plex Mono',monospace;
   }
-  .tb-cell{padding:14px 16px;border-right:1px solid rgba(255,255,255,0.25);}
-  .tb-cell:last-child{border-right:none;}
-  .tb-cell .k{font-size:10px;letter-spacing:0.1em;color:var(--grid);text-transform:uppercase;}
-  .tb-cell .v{font-size:13px;color:var(--white);margin-top:5px;}
+  .tb-cell{padding:16px 18px;background:rgba(255,255,255,0.03);}
+  .tb-cell .k{font-size:10px;letter-spacing:0.08em;color:var(--dark-soft);text-transform:uppercase;}
+  .tb-cell .v{font-size:13px;color:#fff;margin-top:6px;}
   @media(max-width:720px){.tb-grid{grid-template-columns:repeat(2,1fr);}}
   .motto{
-    margin-top:22px;text-align:center;
-    font-family:Georgia,'Times New Roman',serif;font-style:italic;font-weight:400;
-    font-size:17px;letter-spacing:0.01em;color:#C7D6DC;
+    margin-top:24px;text-align:center;
+    font-family:'Oswald',sans-serif;font-style:italic;font-weight:400;
+    font-size:17px;letter-spacing:0.01em;color:var(--dark-soft);
   }
-  .copyright{padding:22px 0;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#8AA0A8;}
+  .copyright{padding:24px 0;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:rgba(255,255,255,0.35);}
 
   /* ---------- ATTACHMENT (Detailed Work Experience) ---------- */
   .attach-section{background:var(--white);border-top:1px solid var(--line);}
-  .exp-table-wrap{overflow-x:auto;border:1px solid var(--line);box-shadow:0 8px 24px rgba(11,43,62,0.08);}
+  .exp-table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:18px;box-shadow:0 10px 30px rgba(51,47,40,0.06);}
   .exp-table{width:100%;border-collapse:collapse;min-width:980px;font-size:12.5px;}
   .exp-table thead th{
-    background:var(--blueprint-deep);color:var(--white);
+    background:var(--dark);color:#EFE9DD;
     font-family:'IBM Plex Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.06em;
-    text-align:left;padding:13px 14px;white-space:nowrap;
+    text-align:left;padding:14px 14px;white-space:nowrap;
   }
   .exp-table tbody tr.exp-group-row td{
-    background:var(--gc,var(--blueprint));
-    color:var(--white);font-family:'Oswald',sans-serif;font-weight:600;letter-spacing:0.02em;
-    padding:11px 14px;font-size:13.5px;text-transform:uppercase;
+    background:var(--gc,var(--accent));
+    color:#fff;font-family:'Oswald',sans-serif;font-weight:600;letter-spacing:0;
+    padding:12px 14px;font-size:13.5px;
   }
   .exp-table tbody tr.exp-group-row .exp-group-role{
     font-family:'IBM Plex Mono',monospace;font-weight:400;font-size:11.5px;
-    opacity:0.88;margin-left:12px;text-transform:none;letter-spacing:0;
+    opacity:0.85;margin-left:12px;letter-spacing:0;
   }
   .exp-table tbody tr.exp-data td{
-    padding:9px 14px;border-bottom:1px solid var(--line);vertical-align:top;color:var(--ink);
+    padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top;color:var(--ink);
   }
-  .exp-table tbody tr.exp-data td:first-child{border-left:4px solid var(--gc,var(--blueprint));}
+  .exp-table tbody tr.exp-data td:first-child{border-left:4px solid var(--gc,var(--accent));}
   .exp-table tbody tr.exp-data:nth-child(even){background:var(--paper);}
-  .exp-table tbody tr.exp-data:hover{background:#FBEFD9;}
-  .exp-table tbody tr.exp-data td.yr{font-family:'IBM Plex Mono',monospace;color:var(--signal-deep);white-space:nowrap;font-weight:600;}
-  .exp-table tbody tr.exp-data td.scope{font-family:'IBM Plex Mono',monospace;color:var(--gc,var(--blueprint));font-weight:600;white-space:nowrap;}
-  .exp-table tbody tr.exp-data td.role{color:var(--steel);}
+  .exp-table tbody tr.exp-data:hover{background:var(--accent-soft);}
+  .exp-table tbody tr.exp-data td.yr{font-family:'IBM Plex Mono',monospace;color:var(--accent-deep);white-space:nowrap;font-weight:600;}
+  .exp-table tbody tr.exp-data td.scope{font-family:'IBM Plex Mono',monospace;color:var(--gc,var(--accent-deep));font-weight:600;white-space:nowrap;}
+  .exp-table tbody tr.exp-data td.role{color:var(--ink-soft);}
 
   /* ---------- PRINT ---------- */
   @media print{
@@ -411,7 +427,6 @@
 </nav>
 
 <header class="hero">
-  <div class="grid-bg"></div>
   <div class="wrap hero-inner">
     <div class="eyebrow">Structural Specialist &amp; Advisor · Offshore &amp; Onshore</div>
     <h1>Building the frames that hold <span>the world's platforms up.</span></h1>
@@ -643,7 +658,7 @@
       </div>
       <div class="tool-row"><span>SESAM Suite</span><span>GeniE, Framework, Presel, Sestra, Wajac</span></div>
       <div class="tool-row"><span>SACS</span><span>Offshore structural analysis</span></div>
-      <div class="tool-row"><span>MicroSAS II</span><span>Structural analysis</span></div>
+      <div class="tool-row"><span>MicroSAS II</span><span>Offshore structural analysis</span></div>
       <div class="tool-row"><span>STAAD.Pro</span><span>Structural analysis &amp; design</span></div>
       <div class="tool-row"><span>GRLWEAP</span><span>Pile driveability analysis</span></div>
     </div>
@@ -688,8 +703,9 @@
 </section>
 
 <footer id="contact">
+  <img class="footer-portrait" src="assets/img/projects/footer-portrait.jpg" alt="" aria-hidden="true">
   <div class="wrap contact-inner">
-    <div class="sec-tag" style="color:var(--signal);">Get in touch</div>
+    <div class="sec-tag" style="color:var(--accent);">Get in touch</div>
     <h2>Let's talk about your next structure.</h2>
     <p class="sub">Open to advisory, consulting, and lead structural engineering roles across offshore and onshore oil &amp; gas, petrochemical, and industrial projects — and to AI process-advisory engagements for engineering firms.</p>
     <div class="contact-links">
@@ -741,92 +757,92 @@
           </tr>
         </thead>
         <tbody>
-      <tr class="exp-group-row" style="--gc:#1C4A69"><td colspan="7"><span class="exp-group-name">PT. Kellogg Brown and Root Indonesia</span><span class="exp-group-role">Senior Technical Professional Leader</span></td></tr>
-      <tr class="exp-data" style="--gc:#1C4A69"><td class="yr">2024</td><td>Petrobras P-84 &amp; P-85 FPSO Module</td><td>Santos Basin Development Project</td><td>Central and Northern Pre- Salt Cluster i.e: Atapu-2 &amp; Sepia-2 Brazil</td><td>FPSO</td><td class="scope">EPCI</td><td class="role">Lead Structure of KBR-JEC (Jakarta) to support KBR-SOC (Singapore) structural engineering</td></tr>
-      <tr class="exp-data" style="--gc:#1C4A69"><td class="yr">2023</td><td>Shell-Crux NNM Project</td><td>Shell-Crux Development Project</td><td>Crux Field Australia</td><td>Offshore Platform</td><td class="scope">EPCI</td><td class="role">Lead Structure of KBR-JEC (Jakarta) to support KBR-SOC (Singapore) structural engineering</td></tr>
-      <tr class="exp-data" style="--gc:#1C4A69"><td class="yr">2023</td><td>Petrobras P-80 FPSO Module</td><td>Buzios-9 Oil Field Development Project</td><td>Buzios-9 Brazil</td><td>FPSO</td><td class="scope">EPCI</td><td class="role">Lead Structure of KBR-JEC (Jakarta) to support KBR-SOC (Singapore) structural engineering</td></tr>
-      <tr class="exp-group-row" style="--gc:#2E7D6B"><td colspan="7"><span class="exp-group-name">PT. Solusi Energy Nusantara</span><span class="exp-group-role">Principal Civil – Structure Onshore / Offshore</span></td></tr>
-      <tr class="exp-data" style="--gc:#2E7D6B"><td class="yr">2022</td><td>PT. Pertamina RU IV Cilacap</td><td>Area-70 Jetty-1 Assessment</td><td>Cilacap Indonesia</td><td>Jetty</td><td class="scope">E</td><td class="role">Civil Structure Lead</td></tr>
-      <tr class="exp-data" style="--gc:#2E7D6B"><td class="yr">2022</td><td>PT Pertamina Gas</td><td>Senipah – Balikpapan HDD Pipeline Crossing</td><td>Senipah Indonesia</td><td>Pipeline</td><td class="scope">E</td><td class="role">Civil Structure Advisor</td></tr>
-      <tr class="exp-data" style="--gc:#2E7D6B"><td class="yr">2022</td><td>Pertamina Gas Negara</td><td>KEPMEN 13 : Jetty vs Jettyless Comparison Study</td><td>East of Indonesia</td><td>Offshore Platform</td><td class="scope">E</td><td class="role">Structure Specialist</td></tr>
-      <tr class="exp-group-row" style="--gc:#B5721B"><td colspan="7"><span class="exp-group-name">PT. PCG - Partono Fondas Engineering Consultant - CEO</span><span class="exp-group-role"></span></td></tr>
-      <tr class="exp-data" style="--gc:#B5721B"><td class="yr">2021</td><td>PT. DongJin Indonesia</td><td>Chemical Plant Relocation</td><td>Cilegon Indonesia</td><td>Chemical Plant</td><td class="scope">E &amp; C</td><td class="role">Project Lead</td></tr>
-      <tr class="exp-data" style="--gc:#B5721B"><td class="yr">2021</td><td>PT. Bion Sce Indonesia</td><td>Refuse-Derived Fuel Burangkeng</td><td>Bekasi, Indonesia</td><td>Factory</td><td class="scope">E &amp; C</td><td class="role">Project Lead</td></tr>
-      <tr class="exp-data" style="--gc:#B5721B"><td class="yr">2020 - 2021</td><td>PT. Semen Tonasa</td><td>Raw Mill 411 Foundation Retrofit</td><td>Makasar Indonesia</td><td>Cement Plant</td><td class="scope">E &amp; C</td><td class="role">Technical Advisor</td></tr>
-      <tr class="exp-data" style="--gc:#B5721B"><td class="yr">2020</td><td>Bitzer Compressor Indonesia</td><td>Factory Modification</td><td>Jakarta Indonesia</td><td>Factory</td><td class="scope">EPC</td><td class="role">Technical Director</td></tr>
-      <tr class="exp-data" style="--gc:#B5721B"><td class="yr">2019</td><td>PT. Rekayasa Engineering</td><td>Jetty Assessment against Furnace Ausmelt Lead Offloading</td><td>Muntok Bangka Indonesia</td><td>Jetty</td><td class="scope">E</td><td class="role">Technical Director</td></tr>
-      <tr class="exp-data" style="--gc:#B5721B"><td class="yr">2019 - 2020</td><td>PT. Sepuluh Sumber Anugerah and Shoenary Javanesia Inc</td><td>17 hectares Shoe Plant</td><td>Temanggung Indonesia</td><td>Factory</td><td class="scope">E &amp; C</td><td class="role">Technical Director</td></tr>
-      <tr class="exp-data" style="--gc:#B5721B"><td class="yr">2018</td><td>PT INC Multi Konsultan / Hyundai E&amp;C</td><td>10,000 MW Biomass Power Plant</td><td>South Konawe Indonesia</td><td>Renewable</td><td class="scope">EPCI</td><td class="role">Consultant</td></tr>
-      <tr class="exp-data" style="--gc:#B5721B"><td class="yr">2018</td><td>PT. Moya Indonesia</td><td>IPA 7 WTP 2 X 500 LPS</td><td>Tanggerang Indonesia</td><td>Water Treatment Plant</td><td class="scope">E &amp; C</td><td class="role">Technical Director</td></tr>
-      <tr class="exp-group-row" style="--gc:#7A4FB5"><td colspan="7"><span class="exp-group-name">PT. Enerco RPO International</span><span class="exp-group-role">Project Engineer, Deputy Construction Manager, Lead Civil Structure</span></td></tr>
-      <tr class="exp-data" style="--gc:#7A4FB5"><td class="yr">2016 - 2018</td><td>PT. Enerco RPO International</td><td>TDAE Plant Project</td><td>Batam Indonesia</td><td>Onshore Plant</td><td class="scope">EPCI</td><td class="role">Lead / Project Engineer Civil, and Structure, Deputy CM</td></tr>
-      <tr class="exp-group-row" style="--gc:#1C6EA4"><td colspan="7"><span class="exp-group-name">PT. Kellogg Brown and Root Indonesia</span><span class="exp-group-role">Senior Technical Advisor</span></td></tr>
-      <tr class="exp-data" style="--gc:#1C6EA4"><td class="yr">2016</td><td>PT. DOK Air Kantung Shipyard</td><td>Graving Dock 2 &amp; 3 upgrades</td><td>Bangka Indonesia</td><td>Graving Dock</td><td class="scope">E</td><td class="role">Professional Civil and Structure Consultant</td></tr>
-      <tr class="exp-data" style="--gc:#1C6EA4"><td class="yr">2015 - 2016</td><td>Maersk Oil UK</td><td>Culzean Field Development Project</td><td>North Sea Aberdeen UK</td><td>Offshore Platform</td><td class="scope">EPCI</td><td class="role">Lead Structure of JEC (Jakarta) to support Lead Structure of SOC (Singapore)</td></tr>
-      <tr class="exp-data" style="--gc:#1C6EA4"><td class="yr">2015 - 2016</td><td>PHE – WMO</td><td>Structural Integrated Management system</td><td>Jakarta Indonesia</td><td>Offshore Platform</td><td class="scope">E</td><td class="role">Structural Specialist</td></tr>
-      <tr class="exp-data" style="--gc:#1C6EA4"><td class="yr">2012 - 2016</td><td>BP Shah Deniz</td><td>Shah Deniz Stage 2 Development Project</td><td>Caspian Sea Azerbaijan</td><td>Offshore Platform</td><td class="scope">EPCI</td><td class="role">Lead Structure of JEC (Jakarta) to support Lead Structure of LOC (London)</td></tr>
-      <tr class="exp-data" style="--gc:#1C6EA4"><td class="yr">2015</td><td>PT Chandra Asri</td><td>Assessment on Flare Strcture</td><td>Indonesia</td><td>Flare Tower</td><td class="scope">E</td><td class="role">Lead Structure</td></tr>
-      <tr class="exp-data" style="--gc:#1C6EA4"><td class="yr">2014 - 2015</td><td>BP Indonesia Tangguh</td><td>Assessment on VR-A and VR-B platform</td><td>Tangguh Field Indonesia</td><td>Offshore Platform</td><td class="scope">E</td><td class="role">Lead Structure of JEC (Jakarta) to support Lead Structure of KBR’s</td></tr>
-      <tr class="exp-data" style="--gc:#1C6EA4"><td class="yr">2012</td><td>PT.PLN Persero</td><td>20kV Voltage Bridge</td><td>Indonesia</td><td>Onshore</td><td class="scope">E</td><td class="role">Lead Structure and Analyst</td></tr>
-      <tr class="exp-data" style="--gc:#1C6EA4"><td class="yr">2011 - 2012</td><td>Dragados Offshore / HESS Denmark</td><td>South Arne Development Project</td><td>Denmark</td><td>Offshore Platform</td><td class="scope">EPCI</td><td class="role">Lead Structure of JEC (Jakarta) to support Lead Structure of LOC (London)</td></tr>
-      <tr class="exp-data" style="--gc:#1C6EA4"><td class="yr">2011</td><td>Saipem Indonesia / Premier Oil</td><td>Gajah Baru Development Project</td><td>Indonesia</td><td>Offshore Platform</td><td class="scope">E</td><td class="role">Lead Structure and Analyst</td></tr>
-      <tr class="exp-data" style="--gc:#1C6EA4"><td class="yr">2010</td><td>SMOE</td><td>Eldfisk Topside Transportation Study</td><td>Norway</td><td>Offshore Platform</td><td class="scope">E</td><td class="role">Lead Structure of JEC (Jakarta) to support Lead Structure of SOC (Singapore)</td></tr>
-      <tr class="exp-group-row" style="--gc:#C24444"><td colspan="7"><span class="exp-group-name">PT. Mc. Dermott Indonesia</span><span class="exp-group-role">Consulting Engineer A</span></td></tr>
-      <tr class="exp-data" style="--gc:#C24444"><td class="yr">2007-2009</td><td>CLJOC</td><td>Su Tu Den Northeast WHP-B Field Development</td><td>Vietnam</td><td>Offshore Platform</td><td class="scope">EPCI</td><td class="role">Lead Structural Engineer</td></tr>
-      <tr class="exp-data" style="--gc:#C24444"><td class="yr">2006-2007</td><td>McDermott Batam</td><td>Heavy Skidway &amp; Bulkhead South Yard</td><td>Indonesia</td><td>Concrete Foundation &amp; Bulkhead</td><td class="scope">EPCI</td><td class="role">Project Engineer / Lead Structural Engineer</td></tr>
-      <tr class="exp-data" style="--gc:#C24444"><td class="yr">2006</td><td>Petronas Carigali Muria Ltd</td><td>Kepodang Gas Development</td><td>Indonesia</td><td>Offshore Platform</td><td class="scope">E</td><td class="role">Lead Structural Engineer</td></tr>
-      <tr class="exp-data" style="--gc:#C24444"><td class="yr">2005-2006</td><td>McDermott Batam</td><td>Heavy Skidway West Yard</td><td>Indonesia</td><td>Concrete Foundation</td><td class="scope">EPCI</td><td class="role">Project Engineer / Lead Structure Engineer</td></tr>
-      <tr class="exp-data" style="--gc:#C24444"><td class="yr">2005</td><td>Cuu Long JOC</td><td>Su Tu Vang Field Development</td><td>Vietnam</td><td>Offshore Platform</td><td class="scope">EPCI</td><td class="role">Senior Structural Engineer</td></tr>
-      <tr class="exp-data" style="--gc:#C24444"><td class="yr">2005</td><td>ConocoPhillips Indonesia</td><td>WHP-A Belanak Reanalysis</td><td>Indonesia</td><td>Offshore Platform</td><td class="scope">EPCI</td><td class="role">Lead Structural Engineer</td></tr>
-      <tr class="exp-data" style="--gc:#C24444"><td class="yr">2004</td><td>McDermott Offshore Operations</td><td>Bunga Raya Tripod On Bottom Stability TQA</td><td>Malaysia</td><td>Offshore Platform</td><td class="scope">E</td><td class="role">Lead Structural Engineer</td></tr>
-      <tr class="exp-data" style="--gc:#C24444"><td class="yr">2003</td><td>McDermott Batam</td><td>Berthing Pile, Access Tower and Tower Crane Foundation</td><td>Indonesia</td><td>Concrete and Steel Foundation</td><td class="scope">E &amp; C</td><td class="role">Lead Structural Engineer</td></tr>
-      <tr class="exp-data" style="--gc:#C24444"><td class="yr">2003</td><td>Total Indonesie</td><td>Peciko Pipeline Network Back-up Lines EPSC-4</td><td>Indonesia</td><td>Offshore Platform</td><td class="scope">EPCI</td><td class="role">Lead Structural Engineer</td></tr>
-      <tr class="exp-data" style="--gc:#C24444"><td class="yr">2002-2003</td><td>BP West Java Ltd.</td><td>ONWJ Gas Projects Group I</td><td>Indonesia</td><td>Offshore Platform</td><td class="scope">EPCI</td><td class="role">Lead Structural Engineer</td></tr>
-      <tr class="exp-data" style="--gc:#C24444"><td class="yr">2002</td><td>Conoco Phillips</td><td>Belanak WHP-B Development Project</td><td>Indonesia</td><td>Offshore Platform</td><td class="scope">EPCI</td><td class="role">Senior Structural Engineer</td></tr>
-      <tr class="exp-data" style="--gc:#C24444"><td class="yr">2001-2002</td><td>Unocal Thailand</td><td>North Pailin Gas Development</td><td>Indonesia</td><td>Offshore Platform</td><td class="scope">CI</td><td class="role">Senior Structural Engineer</td></tr>
-      <tr class="exp-group-row" style="--gc:#4E6672"><td colspan="7"><span class="exp-group-name">PT. Kvaerner Indonesia</span><span class="exp-group-role">Senior Structural Engineer</span></td></tr>
-      <tr class="exp-data" style="--gc:#4E6672"><td class="yr">2000-2001</td><td>Exxon Mobil</td><td>Dehydration and Phase A Separator</td><td>Indonesia</td><td>Onshore Facility</td><td class="scope">EPC</td><td class="role">Lead Structural Engineer</td></tr>
-      <tr class="exp-data" style="--gc:#4E6672"><td class="yr">1999-2000</td><td>Total Indonesie</td><td>Tunu 7 Development</td><td>Indonesia</td><td>Onshore Facility</td><td class="scope">EPCI</td><td class="role">Senior Structural engineer</td></tr>
-      <tr class="exp-group-row" style="--gc:#A6791B"><td colspan="7"><span class="exp-group-name">PT. Incontech Rhemayasa</span><span class="exp-group-role">Senior / Lead Structural Enginee</span></td></tr>
-      <tr class="exp-data" style="--gc:#A6791B"><td class="yr">1998-1999</td><td>Maxus SES</td><td>Maintenance &amp; Development</td><td>Indonesia</td><td>Offshore Platform</td><td class="scope">EC</td><td class="role">Senior Structural engineer</td></tr>
-      <tr class="exp-data" style="--gc:#A6791B"><td class="yr">1997-1998</td><td>PT Megatika Internasional</td><td>Permata Executive Apartment</td><td>Indonesia</td><td>High Rise Building</td><td class="scope">C</td><td class="role">Head of Construction Management</td></tr>
-      <tr class="exp-data" style="--gc:#A6791B"><td class="yr">1997</td><td>PT Petronusa Bumibhakti</td><td>Rig Zj 45 j foundation</td><td>Indonesia</td><td>Onshore Drilling</td><td class="scope">EPCI</td><td class="role">Lead Structural Engineer</td></tr>
-      <tr class="exp-data" style="--gc:#A6791B"><td class="yr">1997</td><td>PT Merlasakti Abadi</td><td>ARII LL Development</td><td>Indonesia</td><td>Offshore Platform</td><td class="scope">I</td><td class="role">Structural Engineer</td></tr>
-      <tr class="exp-data" style="--gc:#A6791B"><td class="yr">1997</td><td>PT Petronusa Bumibhakti</td><td>SP-2 Platform</td><td>Indonesia</td><td>Onshore Drilling</td><td class="scope">EPCI</td><td class="role">Lead Structural Engineer</td></tr>
-      <tr class="exp-data" style="--gc:#A6791B"><td class="yr">1996-1997</td><td>PT Reka Patria Ekaguna</td><td>ARII LL Development</td><td>Indonesia</td><td>Offshore Platform</td><td class="scope">E</td><td class="role">Senior Structural Engineer</td></tr>
-      <tr class="exp-data" style="--gc:#A6791B"><td class="yr">1996</td><td>PT Truli Abadi</td><td>Building Reinforcement</td><td>Indonesia</td><td>Parking Building</td><td class="scope">EPC</td><td class="role">Lead Structural Engineer</td></tr>
-      <tr class="exp-data" style="--gc:#A6791B"><td class="yr">1996</td><td>PT Reka Patria Ekaguna</td><td>ARII LL Development</td><td>Indonesia</td><td>Offshore Platform</td><td class="scope">E</td><td class="role">Senior Structural Engineer</td></tr>
-      <tr class="exp-data" style="--gc:#A6791B"><td class="yr">1996</td><td>PT Citrmas Pentama</td><td>Flat Building</td><td>Indonesia</td><td>Building</td><td class="scope">EPC</td><td class="role">Senior Structural Engineer</td></tr>
-      <tr class="exp-data" style="--gc:#A6791B"><td class="yr">1995-1996</td><td>PT Pondok Kalimaya Putih</td><td>Jetty and Marina</td><td>Indonesia</td><td>Jetty</td><td class="scope">EPC</td><td class="role">Senior Structural Engineer</td></tr>
-      <tr class="exp-data" style="--gc:#A6791B"><td class="yr">1995-1996</td><td>PT Lolamina Jakarta</td><td>Cold Storage Building</td><td>Indonesia</td><td>Building</td><td class="scope">EPC</td><td class="role">Senior Structural Engineer</td></tr>
-      <tr class="exp-data" style="--gc:#A6791B"><td class="yr">1995</td><td>PT Paramitha Mardhika</td><td>15 stories twin Apartment</td><td>Indonesia</td><td>High Rise Building</td><td class="scope">EPC</td><td class="role">Senior Structural Engineer</td></tr>
-      <tr class="exp-data" style="--gc:#A6791B"><td class="yr">1995</td><td>Unocal Oil of Indonesia</td><td>Attaka Serang Reanalysis</td><td>Indonesia</td><td>Offshore Platform</td><td class="scope">E</td><td class="role">Senior Structural Engineer</td></tr>
-      <tr class="exp-data" style="--gc:#A6791B"><td class="yr">1995</td><td>Unocal Oil of Indonesia</td><td>Attaka Serang Reanalysis</td><td>Indonesia</td><td>Offshore Platform</td><td class="scope">E</td><td class="role">Senior Structural Engineer</td></tr>
-      <tr class="exp-data" style="--gc:#A6791B"><td class="yr">1995</td><td>Nisconi</td><td>Unocal STA Santan Analysis for Bid Support</td><td>Indonesia</td><td>Offshore Platform</td><td class="scope">EPC</td><td class="role">Senior Structural Engineer</td></tr>
-      <tr class="exp-data" style="--gc:#A6791B"><td class="yr">1995</td><td>PT Reka Patria Ekaguna</td><td>ARII LL Development</td><td>Indonesia</td><td>Offshore Platform</td><td class="scope">E</td><td class="role">Senior Structural Engineer</td></tr>
-      <tr class="exp-data" style="--gc:#A6791B"><td class="yr">1995</td><td>PT Aditya Toa Development</td><td>Vibration Measurement and Assessment</td><td>Indonesia</td><td>High Rise Building</td><td class="scope">E</td><td class="role">Senior Structural Engineer</td></tr>
-      <tr class="exp-data" style="--gc:#A6791B"><td class="yr">1995</td><td>PT Dharma Nilaitama</td><td>Building Strength Assessment After Fire (Semoga Madju Building)</td><td>Indonesia</td><td>Building</td><td class="scope">E</td><td class="role">Senior Structural Engineer</td></tr>
-      <tr class="exp-data" style="--gc:#A6791B"><td class="yr">1994-1995</td><td>PT Paramitha Mardhika</td><td>Kebayoran Regency Sport Club</td><td>Indonesia</td><td>Building</td><td class="scope">E</td><td class="role">Structural Engineer</td></tr>
-      <tr class="exp-data" style="--gc:#A6791B"><td class="yr">1994</td><td>PT Total-LKN-Indisi</td><td>Four Season Hotel (Regent) Corbel and Beam Repair</td><td>Indonesia</td><td>High Rise Building</td><td class="scope">E</td><td class="role">Structural Engineer</td></tr>
-      <tr class="exp-data" style="--gc:#A6791B"><td class="yr">1994</td><td>PT Bhaktihutama Wiradya</td><td>Building Strength Assessment After Fire</td><td>Indonesia</td><td>Building</td><td class="scope">E</td><td class="role">Structural Engineer</td></tr>
-      <tr class="exp-data" style="--gc:#A6791B"><td class="yr">1994</td><td>PT Arsindo Multi Graha</td><td>Palma Furniture Building</td><td>Indonesia</td><td>Building</td><td class="scope">E</td><td class="role">Structural Engineer</td></tr>
-      <tr class="exp-data" style="--gc:#A6791B"><td class="yr">1994</td><td>PT Dharma Nilaitama</td><td>Building Strength Assessment after Fire (Manyar Supermarket)</td><td>Indonesia</td><td>Building</td><td class="scope">E</td><td class="role">Structural Engineer</td></tr>
-      <tr class="exp-data" style="--gc:#A6791B"><td class="yr">1994</td><td>PT Lestari Magris</td><td>Cold Storage / Process Building</td><td>Indonesia</td><td>Building</td><td class="scope">E</td><td class="role">Structural Engineer</td></tr>
-      <tr class="exp-data" style="--gc:#A6791B"><td class="yr">1994</td><td>PT Reka Patria Ekaguna</td><td>ARII ZUK Development</td><td>Indonesia</td><td>Offshore Platform</td><td class="scope">E</td><td class="role">Structural Engineer</td></tr>
-      <tr class="exp-data" style="--gc:#A6791B"><td class="yr">1994</td><td>PT Paranada Ekayasa</td><td>ARII Onshore Facility</td><td>Indonesia</td><td>Onshore Facility</td><td class="scope">EPC</td><td class="role">Structural Engineer</td></tr>
-      <tr class="exp-data" style="--gc:#A6791B"><td class="yr">1994</td><td>PT Lolamina Jakarta</td><td>Cold Storage Beam and Slab Repair</td><td>Indonesia</td><td>Building</td><td class="scope">EPC</td><td class="role">Structural Engineer</td></tr>
-      <tr class="exp-data" style="--gc:#A6791B"><td class="yr">1994</td><td>PT Lolamina Jakarta</td><td>Seafood 3rd Expansion</td><td>Indonesia</td><td>Building</td><td class="scope">EPC</td><td class="role">Structural Engineer</td></tr>
-      <tr class="exp-data" style="--gc:#A6791B"><td class="yr">1994</td><td>PT Trimantra Purindo</td><td>5 and 3 Storeys Office</td><td>Indonesia</td><td>Building</td><td class="scope">EPC</td><td class="role">Structural Engineer</td></tr>
-      <tr class="exp-data" style="--gc:#A6791B"><td class="yr">1994</td><td>PT Bali Permai Perkasa</td><td>Bali Hai Resort Beam Repair</td><td>Indonesia</td><td>Building</td><td class="scope">EPC</td><td class="role">Structural Engineer</td></tr>
-      <tr class="exp-data" style="--gc:#A6791B"><td class="yr">1994</td><td>PT Sri Rejeki Rejodadi</td><td>Electric and New Energy Museum Truss Dome Roof</td><td>Indonesia</td><td>Building</td><td class="scope">EPC</td><td class="role">Structural Engineer</td></tr>
-      <tr class="exp-data" style="--gc:#A6791B"><td class="yr">1993</td><td>Unocal Oil of Indonesia</td><td>Structural Reanalysis of Attaka B, Kerindingan II, Melahin III</td><td>Indonesia</td><td>Offshore Platform</td><td class="scope">E</td><td class="role">Junior Structural Engineer</td></tr>
-      <tr class="exp-data" style="--gc:#A6791B"><td class="yr">1992-1993</td><td>Unocal Oil of Indonesia</td><td>Attaka ‘P’ Revamping</td><td>Indonesia</td><td>Offshore Platform</td><td class="scope">E</td><td class="role">Junior Structural Engineer</td></tr>
-      <tr class="exp-data" style="--gc:#A6791B"><td class="yr">1992</td><td>Unocal Oil of Indonesia</td><td>Sepinggan ‘H’ Deck Extension</td><td>Indonesia</td><td>Offshore Platform</td><td class="scope">E</td><td class="role">Junior Structural Engineer</td></tr>
-      <tr class="exp-data" style="--gc:#A6791B"><td class="yr">1992</td><td>PT Singgar Mulya</td><td>ARII FWB, FNB, FN Platforms</td><td>Indonesia</td><td>Offshore Platform</td><td class="scope">E</td><td class="role">Junior Structural Engineer</td></tr>
-      <tr class="exp-data" style="--gc:#A6791B"><td class="yr">1992</td><td>PT Singgar Mulya</td><td>Rajah Single Caisson</td><td>Indonesia</td><td>Offshore Platform</td><td class="scope">E</td><td class="role">Junior Structural Engineer</td></tr>
-      <tr class="exp-data" style="--gc:#A6791B"><td class="yr">1992</td><td>PT Hanurata &amp; Coy</td><td>Building Assessment after Fire</td><td>Indonesia</td><td>Building</td><td class="scope">E</td><td class="role">Junior Structural Engineer</td></tr>
-      <tr class="exp-data" style="--gc:#A6791B"><td class="yr">1991-1992</td><td>PT Uni Tri Cipta</td><td>Structural Assessment of Senayan Stadium</td><td>Indonesia</td><td>Building</td><td class="scope">E</td><td class="role">Junior Structural Engineer</td></tr>
-      <tr class="exp-data" style="--gc:#A6791B"><td class="yr">1991</td><td>PT Uni Tri Cipta</td><td>Swimming Pool Modification of Senayan Stadium</td><td>Indonesia</td><td>Building</td><td class="scope">EC</td><td class="role">Junior Structural Engineer</td></tr>
+      <tr class="exp-group-row" style="--gc:#B5654A"><td colspan="7"><span class="exp-group-name">PT. Kellogg Brown and Root Indonesia</span><span class="exp-group-role">Senior Technical Professional Leader</span></td></tr>
+      <tr class="exp-data" style="--gc:#B5654A"><td class="yr">2024</td><td>Petrobras P-84 &amp; P-85 FPSO Module</td><td>Santos Basin Development Project</td><td>Central and Northern Pre- Salt Cluster i.e: Atapu-2 &amp; Sepia-2 Brazil</td><td>FPSO</td><td class="scope">EPCI</td><td class="role">Lead Structure of KBR-JEC (Jakarta) to support KBR-SOC (Singapore) structural engineering</td></tr>
+      <tr class="exp-data" style="--gc:#B5654A"><td class="yr">2023</td><td>Shell-Crux NNM Project</td><td>Shell-Crux Development Project</td><td>Crux Field Australia</td><td>Offshore Platform</td><td class="scope">EPCI</td><td class="role">Lead Structure of KBR-JEC (Jakarta) to support KBR-SOC (Singapore) structural engineering</td></tr>
+      <tr class="exp-data" style="--gc:#B5654A"><td class="yr">2023</td><td>Petrobras P-80 FPSO Module</td><td>Buzios-9 Oil Field Development Project</td><td>Buzios-9 Brazil</td><td>FPSO</td><td class="scope">EPCI</td><td class="role">Lead Structure of KBR-JEC (Jakarta) to support KBR-SOC (Singapore) structural engineering</td></tr>
+      <tr class="exp-group-row" style="--gc:#7A8B5C"><td colspan="7"><span class="exp-group-name">PT. Solusi Energy Nusantara</span><span class="exp-group-role">Principal Civil – Structure Onshore / Offshore</span></td></tr>
+      <tr class="exp-data" style="--gc:#7A8B5C"><td class="yr">2022</td><td>PT. Pertamina RU IV Cilacap</td><td>Area-70 Jetty-1 Assessment</td><td>Cilacap Indonesia</td><td>Jetty</td><td class="scope">E</td><td class="role">Civil Structure Lead</td></tr>
+      <tr class="exp-data" style="--gc:#7A8B5C"><td class="yr">2022</td><td>PT Pertamina Gas</td><td>Senipah – Balikpapan HDD Pipeline Crossing</td><td>Senipah Indonesia</td><td>Pipeline</td><td class="scope">E</td><td class="role">Civil Structure Advisor</td></tr>
+      <tr class="exp-data" style="--gc:#7A8B5C"><td class="yr">2022</td><td>Pertamina Gas Negara</td><td>KEPMEN 13 : Jetty vs Jettyless Comparison Study</td><td>East of Indonesia</td><td>Offshore Platform</td><td class="scope">E</td><td class="role">Structure Specialist</td></tr>
+      <tr class="exp-group-row" style="--gc:#C99A3E"><td colspan="7"><span class="exp-group-name">PT. PCG - Partono Fondas Engineering Consultant - CEO</span><span class="exp-group-role"></span></td></tr>
+      <tr class="exp-data" style="--gc:#C99A3E"><td class="yr">2021</td><td>PT. DongJin Indonesia</td><td>Chemical Plant Relocation</td><td>Cilegon Indonesia</td><td>Chemical Plant</td><td class="scope">E &amp; C</td><td class="role">Project Lead</td></tr>
+      <tr class="exp-data" style="--gc:#C99A3E"><td class="yr">2021</td><td>PT. Bion Sce Indonesia</td><td>Refuse-Derived Fuel Burangkeng</td><td>Bekasi, Indonesia</td><td>Factory</td><td class="scope">E &amp; C</td><td class="role">Project Lead</td></tr>
+      <tr class="exp-data" style="--gc:#C99A3E"><td class="yr">2020 - 2021</td><td>PT. Semen Tonasa</td><td>Raw Mill 411 Foundation Retrofit</td><td>Makasar Indonesia</td><td>Cement Plant</td><td class="scope">E &amp; C</td><td class="role">Technical Advisor</td></tr>
+      <tr class="exp-data" style="--gc:#C99A3E"><td class="yr">2020</td><td>Bitzer Compressor Indonesia</td><td>Factory Modification</td><td>Jakarta Indonesia</td><td>Factory</td><td class="scope">EPC</td><td class="role">Technical Director</td></tr>
+      <tr class="exp-data" style="--gc:#C99A3E"><td class="yr">2019</td><td>PT. Rekayasa Engineering</td><td>Jetty Assessment against Furnace Ausmelt Lead Offloading</td><td>Muntok Bangka Indonesia</td><td>Jetty</td><td class="scope">E</td><td class="role">Technical Director</td></tr>
+      <tr class="exp-data" style="--gc:#C99A3E"><td class="yr">2019 - 2020</td><td>PT. Sepuluh Sumber Anugerah and Shoenary Javanesia Inc</td><td>17 hectares Shoe Plant</td><td>Temanggung Indonesia</td><td>Factory</td><td class="scope">E &amp; C</td><td class="role">Technical Director</td></tr>
+      <tr class="exp-data" style="--gc:#C99A3E"><td class="yr">2018</td><td>PT INC Multi Konsultan / Hyundai E&amp;C</td><td>10,000 MW Biomass Power Plant</td><td>South Konawe Indonesia</td><td>Renewable</td><td class="scope">EPCI</td><td class="role">Consultant</td></tr>
+      <tr class="exp-data" style="--gc:#C99A3E"><td class="yr">2018</td><td>PT. Moya Indonesia</td><td>IPA 7 WTP 2 X 500 LPS</td><td>Tanggerang Indonesia</td><td>Water Treatment Plant</td><td class="scope">E &amp; C</td><td class="role">Technical Director</td></tr>
+      <tr class="exp-group-row" style="--gc:#8B6F9E"><td colspan="7"><span class="exp-group-name">PT. Enerco RPO International</span><span class="exp-group-role">Project Engineer, Deputy Construction Manager, Lead Civil Structure</span></td></tr>
+      <tr class="exp-data" style="--gc:#8B6F9E"><td class="yr">2016 - 2018</td><td>PT. Enerco RPO International</td><td>TDAE Plant Project</td><td>Batam Indonesia</td><td>Onshore Plant</td><td class="scope">EPCI</td><td class="role">Lead / Project Engineer Civil, and Structure, Deputy CM</td></tr>
+      <tr class="exp-group-row" style="--gc:#4A7A7A"><td colspan="7"><span class="exp-group-name">PT. Kellogg Brown and Root Indonesia</span><span class="exp-group-role">Senior Technical Advisor</span></td></tr>
+      <tr class="exp-data" style="--gc:#4A7A7A"><td class="yr">2016</td><td>PT. DOK Air Kantung Shipyard</td><td>Graving Dock 2 &amp; 3 upgrades</td><td>Bangka Indonesia</td><td>Graving Dock</td><td class="scope">E</td><td class="role">Professional Civil and Structure Consultant</td></tr>
+      <tr class="exp-data" style="--gc:#4A7A7A"><td class="yr">2015 - 2016</td><td>Maersk Oil UK</td><td>Culzean Field Development Project</td><td>North Sea Aberdeen UK</td><td>Offshore Platform</td><td class="scope">EPCI</td><td class="role">Lead Structure of JEC (Jakarta) to support Lead Structure of SOC (Singapore)</td></tr>
+      <tr class="exp-data" style="--gc:#4A7A7A"><td class="yr">2015 - 2016</td><td>PHE – WMO</td><td>Structural Integrated Management system</td><td>Jakarta Indonesia</td><td>Offshore Platform</td><td class="scope">E</td><td class="role">Structural Specialist</td></tr>
+      <tr class="exp-data" style="--gc:#4A7A7A"><td class="yr">2012 - 2016</td><td>BP Shah Deniz</td><td>Shah Deniz Stage 2 Development Project</td><td>Caspian Sea Azerbaijan</td><td>Offshore Platform</td><td class="scope">EPCI</td><td class="role">Lead Structure of JEC (Jakarta) to support Lead Structure of LOC (London)</td></tr>
+      <tr class="exp-data" style="--gc:#4A7A7A"><td class="yr">2015</td><td>PT Chandra Asri</td><td>Assessment on Flare Strcture</td><td>Indonesia</td><td>Flare Tower</td><td class="scope">E</td><td class="role">Lead Structure</td></tr>
+      <tr class="exp-data" style="--gc:#4A7A7A"><td class="yr">2014 - 2015</td><td>BP Indonesia Tangguh</td><td>Assessment on VR-A and VR-B platform</td><td>Tangguh Field Indonesia</td><td>Offshore Platform</td><td class="scope">E</td><td class="role">Lead Structure of JEC (Jakarta) to support Lead Structure of KBR’s</td></tr>
+      <tr class="exp-data" style="--gc:#4A7A7A"><td class="yr">2012</td><td>PT.PLN Persero</td><td>20kV Voltage Bridge</td><td>Indonesia</td><td>Onshore</td><td class="scope">E</td><td class="role">Lead Structure and Analyst</td></tr>
+      <tr class="exp-data" style="--gc:#4A7A7A"><td class="yr">2011 - 2012</td><td>Dragados Offshore / HESS Denmark</td><td>South Arne Development Project</td><td>Denmark</td><td>Offshore Platform</td><td class="scope">EPCI</td><td class="role">Lead Structure of JEC (Jakarta) to support Lead Structure of LOC (London)</td></tr>
+      <tr class="exp-data" style="--gc:#4A7A7A"><td class="yr">2011</td><td>Saipem Indonesia / Premier Oil</td><td>Gajah Baru Development Project</td><td>Indonesia</td><td>Offshore Platform</td><td class="scope">E</td><td class="role">Lead Structure and Analyst</td></tr>
+      <tr class="exp-data" style="--gc:#4A7A7A"><td class="yr">2010</td><td>SMOE</td><td>Eldfisk Topside Transportation Study</td><td>Norway</td><td>Offshore Platform</td><td class="scope">E</td><td class="role">Lead Structure of JEC (Jakarta) to support Lead Structure of SOC (Singapore)</td></tr>
+      <tr class="exp-group-row" style="--gc:#A6503F"><td colspan="7"><span class="exp-group-name">PT. Mc. Dermott Indonesia</span><span class="exp-group-role">Consulting Engineer A</span></td></tr>
+      <tr class="exp-data" style="--gc:#A6503F"><td class="yr">2007-2009</td><td>CLJOC</td><td>Su Tu Den Northeast WHP-B Field Development</td><td>Vietnam</td><td>Offshore Platform</td><td class="scope">EPCI</td><td class="role">Lead Structural Engineer</td></tr>
+      <tr class="exp-data" style="--gc:#A6503F"><td class="yr">2006-2007</td><td>McDermott Batam</td><td>Heavy Skidway &amp; Bulkhead South Yard</td><td>Indonesia</td><td>Concrete Foundation &amp; Bulkhead</td><td class="scope">EPCI</td><td class="role">Project Engineer / Lead Structural Engineer</td></tr>
+      <tr class="exp-data" style="--gc:#A6503F"><td class="yr">2006</td><td>Petronas Carigali Muria Ltd</td><td>Kepodang Gas Development</td><td>Indonesia</td><td>Offshore Platform</td><td class="scope">E</td><td class="role">Lead Structural Engineer</td></tr>
+      <tr class="exp-data" style="--gc:#A6503F"><td class="yr">2005-2006</td><td>McDermott Batam</td><td>Heavy Skidway West Yard</td><td>Indonesia</td><td>Concrete Foundation</td><td class="scope">EPCI</td><td class="role">Project Engineer / Lead Structure Engineer</td></tr>
+      <tr class="exp-data" style="--gc:#A6503F"><td class="yr">2005</td><td>Cuu Long JOC</td><td>Su Tu Vang Field Development</td><td>Vietnam</td><td>Offshore Platform</td><td class="scope">EPCI</td><td class="role">Senior Structural Engineer</td></tr>
+      <tr class="exp-data" style="--gc:#A6503F"><td class="yr">2005</td><td>ConocoPhillips Indonesia</td><td>WHP-A Belanak Reanalysis</td><td>Indonesia</td><td>Offshore Platform</td><td class="scope">EPCI</td><td class="role">Lead Structural Engineer</td></tr>
+      <tr class="exp-data" style="--gc:#A6503F"><td class="yr">2004</td><td>McDermott Offshore Operations</td><td>Bunga Raya Tripod On Bottom Stability TQA</td><td>Malaysia</td><td>Offshore Platform</td><td class="scope">E</td><td class="role">Lead Structural Engineer</td></tr>
+      <tr class="exp-data" style="--gc:#A6503F"><td class="yr">2003</td><td>McDermott Batam</td><td>Berthing Pile, Access Tower and Tower Crane Foundation</td><td>Indonesia</td><td>Concrete and Steel Foundation</td><td class="scope">E &amp; C</td><td class="role">Lead Structural Engineer</td></tr>
+      <tr class="exp-data" style="--gc:#A6503F"><td class="yr">2003</td><td>Total Indonesie</td><td>Peciko Pipeline Network Back-up Lines EPSC-4</td><td>Indonesia</td><td>Offshore Platform</td><td class="scope">EPCI</td><td class="role">Lead Structural Engineer</td></tr>
+      <tr class="exp-data" style="--gc:#A6503F"><td class="yr">2002-2003</td><td>BP West Java Ltd.</td><td>ONWJ Gas Projects Group I</td><td>Indonesia</td><td>Offshore Platform</td><td class="scope">EPCI</td><td class="role">Lead Structural Engineer</td></tr>
+      <tr class="exp-data" style="--gc:#A6503F"><td class="yr">2002</td><td>Conoco Phillips</td><td>Belanak WHP-B Development Project</td><td>Indonesia</td><td>Offshore Platform</td><td class="scope">EPCI</td><td class="role">Senior Structural Engineer</td></tr>
+      <tr class="exp-data" style="--gc:#A6503F"><td class="yr">2001-2002</td><td>Unocal Thailand</td><td>North Pailin Gas Development</td><td>Indonesia</td><td>Offshore Platform</td><td class="scope">CI</td><td class="role">Senior Structural Engineer</td></tr>
+      <tr class="exp-group-row" style="--gc:#6B7280"><td colspan="7"><span class="exp-group-name">PT. Kvaerner Indonesia</span><span class="exp-group-role">Senior Structural Engineer</span></td></tr>
+      <tr class="exp-data" style="--gc:#6B7280"><td class="yr">2000-2001</td><td>Exxon Mobil</td><td>Dehydration and Phase A Separator</td><td>Indonesia</td><td>Onshore Facility</td><td class="scope">EPC</td><td class="role">Lead Structural Engineer</td></tr>
+      <tr class="exp-data" style="--gc:#6B7280"><td class="yr">1999-2000</td><td>Total Indonesie</td><td>Tunu 7 Development</td><td>Indonesia</td><td>Onshore Facility</td><td class="scope">EPCI</td><td class="role">Senior Structural engineer</td></tr>
+      <tr class="exp-group-row" style="--gc:#9C7A3C"><td colspan="7"><span class="exp-group-name">PT. Incontech Rhemayasa</span><span class="exp-group-role">Senior / Lead Structural Enginee</span></td></tr>
+      <tr class="exp-data" style="--gc:#9C7A3C"><td class="yr">1998-1999</td><td>Maxus SES</td><td>Maintenance &amp; Development</td><td>Indonesia</td><td>Offshore Platform</td><td class="scope">EC</td><td class="role">Senior Structural engineer</td></tr>
+      <tr class="exp-data" style="--gc:#9C7A3C"><td class="yr">1997-1998</td><td>PT Megatika Internasional</td><td>Permata Executive Apartment</td><td>Indonesia</td><td>High Rise Building</td><td class="scope">C</td><td class="role">Head of Construction Management</td></tr>
+      <tr class="exp-data" style="--gc:#9C7A3C"><td class="yr">1997</td><td>PT Petronusa Bumibhakti</td><td>Rig Zj 45 j foundation</td><td>Indonesia</td><td>Onshore Drilling</td><td class="scope">EPCI</td><td class="role">Lead Structural Engineer</td></tr>
+      <tr class="exp-data" style="--gc:#9C7A3C"><td class="yr">1997</td><td>PT Merlasakti Abadi</td><td>ARII LL Development</td><td>Indonesia</td><td>Offshore Platform</td><td class="scope">I</td><td class="role">Structural Engineer</td></tr>
+      <tr class="exp-data" style="--gc:#9C7A3C"><td class="yr">1997</td><td>PT Petronusa Bumibhakti</td><td>SP-2 Platform</td><td>Indonesia</td><td>Onshore Drilling</td><td class="scope">EPCI</td><td class="role">Lead Structural Engineer</td></tr>
+      <tr class="exp-data" style="--gc:#9C7A3C"><td class="yr">1996-1997</td><td>PT Reka Patria Ekaguna</td><td>ARII LL Development</td><td>Indonesia</td><td>Offshore Platform</td><td class="scope">E</td><td class="role">Senior Structural Engineer</td></tr>
+      <tr class="exp-data" style="--gc:#9C7A3C"><td class="yr">1996</td><td>PT Truli Abadi</td><td>Building Reinforcement</td><td>Indonesia</td><td>Parking Building</td><td class="scope">EPC</td><td class="role">Lead Structural Engineer</td></tr>
+      <tr class="exp-data" style="--gc:#9C7A3C"><td class="yr">1996</td><td>PT Reka Patria Ekaguna</td><td>ARII LL Development</td><td>Indonesia</td><td>Offshore Platform</td><td class="scope">E</td><td class="role">Senior Structural Engineer</td></tr>
+      <tr class="exp-data" style="--gc:#9C7A3C"><td class="yr">1996</td><td>PT Citrmas Pentama</td><td>Flat Building</td><td>Indonesia</td><td>Building</td><td class="scope">EPC</td><td class="role">Senior Structural Engineer</td></tr>
+      <tr class="exp-data" style="--gc:#9C7A3C"><td class="yr">1995-1996</td><td>PT Pondok Kalimaya Putih</td><td>Jetty and Marina</td><td>Indonesia</td><td>Jetty</td><td class="scope">EPC</td><td class="role">Senior Structural Engineer</td></tr>
+      <tr class="exp-data" style="--gc:#9C7A3C"><td class="yr">1995-1996</td><td>PT Lolamina Jakarta</td><td>Cold Storage Building</td><td>Indonesia</td><td>Building</td><td class="scope">EPC</td><td class="role">Senior Structural Engineer</td></tr>
+      <tr class="exp-data" style="--gc:#9C7A3C"><td class="yr">1995</td><td>PT Paramitha Mardhika</td><td>15 stories twin Apartment</td><td>Indonesia</td><td>High Rise Building</td><td class="scope">EPC</td><td class="role">Senior Structural Engineer</td></tr>
+      <tr class="exp-data" style="--gc:#9C7A3C"><td class="yr">1995</td><td>Unocal Oil of Indonesia</td><td>Attaka Serang Reanalysis</td><td>Indonesia</td><td>Offshore Platform</td><td class="scope">E</td><td class="role">Senior Structural Engineer</td></tr>
+      <tr class="exp-data" style="--gc:#9C7A3C"><td class="yr">1995</td><td>Unocal Oil of Indonesia</td><td>Attaka Serang Reanalysis</td><td>Indonesia</td><td>Offshore Platform</td><td class="scope">E</td><td class="role">Senior Structural Engineer</td></tr>
+      <tr class="exp-data" style="--gc:#9C7A3C"><td class="yr">1995</td><td>Nisconi</td><td>Unocal STA Santan Analysis for Bid Support</td><td>Indonesia</td><td>Offshore Platform</td><td class="scope">EPC</td><td class="role">Senior Structural Engineer</td></tr>
+      <tr class="exp-data" style="--gc:#9C7A3C"><td class="yr">1995</td><td>PT Reka Patria Ekaguna</td><td>ARII LL Development</td><td>Indonesia</td><td>Offshore Platform</td><td class="scope">E</td><td class="role">Senior Structural Engineer</td></tr>
+      <tr class="exp-data" style="--gc:#9C7A3C"><td class="yr">1995</td><td>PT Aditya Toa Development</td><td>Vibration Measurement and Assessment</td><td>Indonesia</td><td>High Rise Building</td><td class="scope">E</td><td class="role">Senior Structural Engineer</td></tr>
+      <tr class="exp-data" style="--gc:#9C7A3C"><td class="yr">1995</td><td>PT Dharma Nilaitama</td><td>Building Strength Assessment After Fire (Semoga Madju Building)</td><td>Indonesia</td><td>Building</td><td class="scope">E</td><td class="role">Senior Structural Engineer</td></tr>
+      <tr class="exp-data" style="--gc:#9C7A3C"><td class="yr">1994-1995</td><td>PT Paramitha Mardhika</td><td>Kebayoran Regency Sport Club</td><td>Indonesia</td><td>Building</td><td class="scope">E</td><td class="role">Structural Engineer</td></tr>
+      <tr class="exp-data" style="--gc:#9C7A3C"><td class="yr">1994</td><td>PT Total-LKN-Indisi</td><td>Four Season Hotel (Regent) Corbel and Beam Repair</td><td>Indonesia</td><td>High Rise Building</td><td class="scope">E</td><td class="role">Structural Engineer</td></tr>
+      <tr class="exp-data" style="--gc:#9C7A3C"><td class="yr">1994</td><td>PT Bhaktihutama Wiradya</td><td>Building Strength Assessment After Fire</td><td>Indonesia</td><td>Building</td><td class="scope">E</td><td class="role">Structural Engineer</td></tr>
+      <tr class="exp-data" style="--gc:#9C7A3C"><td class="yr">1994</td><td>PT Arsindo Multi Graha</td><td>Palma Furniture Building</td><td>Indonesia</td><td>Building</td><td class="scope">E</td><td class="role">Structural Engineer</td></tr>
+      <tr class="exp-data" style="--gc:#9C7A3C"><td class="yr">1994</td><td>PT Dharma Nilaitama</td><td>Building Strength Assessment after Fire (Manyar Supermarket)</td><td>Indonesia</td><td>Building</td><td class="scope">E</td><td class="role">Structural Engineer</td></tr>
+      <tr class="exp-data" style="--gc:#9C7A3C"><td class="yr">1994</td><td>PT Lestari Magris</td><td>Cold Storage / Process Building</td><td>Indonesia</td><td>Building</td><td class="scope">E</td><td class="role">Structural Engineer</td></tr>
+      <tr class="exp-data" style="--gc:#9C7A3C"><td class="yr">1994</td><td>PT Reka Patria Ekaguna</td><td>ARII ZUK Development</td><td>Indonesia</td><td>Offshore Platform</td><td class="scope">E</td><td class="role">Structural Engineer</td></tr>
+      <tr class="exp-data" style="--gc:#9C7A3C"><td class="yr">1994</td><td>PT Paranada Ekayasa</td><td>ARII Onshore Facility</td><td>Indonesia</td><td>Onshore Facility</td><td class="scope">EPC</td><td class="role">Structural Engineer</td></tr>
+      <tr class="exp-data" style="--gc:#9C7A3C"><td class="yr">1994</td><td>PT Lolamina Jakarta</td><td>Cold Storage Beam and Slab Repair</td><td>Indonesia</td><td>Building</td><td class="scope">EPC</td><td class="role">Structural Engineer</td></tr>
+      <tr class="exp-data" style="--gc:#9C7A3C"><td class="yr">1994</td><td>PT Lolamina Jakarta</td><td>Seafood 3rd Expansion</td><td>Indonesia</td><td>Building</td><td class="scope">EPC</td><td class="role">Structural Engineer</td></tr>
+      <tr class="exp-data" style="--gc:#9C7A3C"><td class="yr">1994</td><td>PT Trimantra Purindo</td><td>5 and 3 Storeys Office</td><td>Indonesia</td><td>Building</td><td class="scope">EPC</td><td class="role">Structural Engineer</td></tr>
+      <tr class="exp-data" style="--gc:#9C7A3C"><td class="yr">1994</td><td>PT Bali Permai Perkasa</td><td>Bali Hai Resort Beam Repair</td><td>Indonesia</td><td>Building</td><td class="scope">EPC</td><td class="role">Structural Engineer</td></tr>
+      <tr class="exp-data" style="--gc:#9C7A3C"><td class="yr">1994</td><td>PT Sri Rejeki Rejodadi</td><td>Electric and New Energy Museum Truss Dome Roof</td><td>Indonesia</td><td>Building</td><td class="scope">EPC</td><td class="role">Structural Engineer</td></tr>
+      <tr class="exp-data" style="--gc:#9C7A3C"><td class="yr">1993</td><td>Unocal Oil of Indonesia</td><td>Structural Reanalysis of Attaka B, Kerindingan II, Melahin III</td><td>Indonesia</td><td>Offshore Platform</td><td class="scope">E</td><td class="role">Junior Structural Engineer</td></tr>
+      <tr class="exp-data" style="--gc:#9C7A3C"><td class="yr">1992-1993</td><td>Unocal Oil of Indonesia</td><td>Attaka ‘P’ Revamping</td><td>Indonesia</td><td>Offshore Platform</td><td class="scope">E</td><td class="role">Junior Structural Engineer</td></tr>
+      <tr class="exp-data" style="--gc:#9C7A3C"><td class="yr">1992</td><td>Unocal Oil of Indonesia</td><td>Sepinggan ‘H’ Deck Extension</td><td>Indonesia</td><td>Offshore Platform</td><td class="scope">E</td><td class="role">Junior Structural Engineer</td></tr>
+      <tr class="exp-data" style="--gc:#9C7A3C"><td class="yr">1992</td><td>PT Singgar Mulya</td><td>ARII FWB, FNB, FN Platforms</td><td>Indonesia</td><td>Offshore Platform</td><td class="scope">E</td><td class="role">Junior Structural Engineer</td></tr>
+      <tr class="exp-data" style="--gc:#9C7A3C"><td class="yr">1992</td><td>PT Singgar Mulya</td><td>Rajah Single Caisson</td><td>Indonesia</td><td>Offshore Platform</td><td class="scope">E</td><td class="role">Junior Structural Engineer</td></tr>
+      <tr class="exp-data" style="--gc:#9C7A3C"><td class="yr">1992</td><td>PT Hanurata &amp; Coy</td><td>Building Assessment after Fire</td><td>Indonesia</td><td>Building</td><td class="scope">E</td><td class="role">Junior Structural Engineer</td></tr>
+      <tr class="exp-data" style="--gc:#9C7A3C"><td class="yr">1991-1992</td><td>PT Uni Tri Cipta</td><td>Structural Assessment of Senayan Stadium</td><td>Indonesia</td><td>Building</td><td class="scope">E</td><td class="role">Junior Structural Engineer</td></tr>
+      <tr class="exp-data" style="--gc:#9C7A3C"><td class="yr">1991</td><td>PT Uni Tri Cipta</td><td>Swimming Pool Modification of Senayan Stadium</td><td>Indonesia</td><td>Building</td><td class="scope">EC</td><td class="role">Junior Structural Engineer</td></tr>
         </tbody>
       </table>
     </div>
