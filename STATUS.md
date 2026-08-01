@@ -1,13 +1,15 @@
 # bbysolution.com — Status
 
-_Last updated: 2026-07-31_
+_Last updated: 2026-08-02_
 
 ## Live
 
 - **URL:** [bbysolution.com](https://bbysolution.com) — domain registered, DNS pointed at Netlify, HTTPS active.
 - **Hosting:** Netlify, auto-deploying from `main` on [github.com/bby-debug/bbysolution-com](https://github.com/bby-debug/bbysolution-com). Push to `main` → live within ~1 minute.
-- **Content:** About, Expertise, AI-Powered Process Advisory, Career timeline (8 employers), 8 featured projects, Tools & Programs, Education, Awards, Contact, and a full 78-row detailed work-experience attachment table — all real content, no placeholders.
-- **SEO basics:** `<title>` / `<meta name="description">` set, canonical URL set, Open Graph tags + `og-cover.jpg` set, favicon set, `Person` JSON-LD structured data present (currently `sameAs` only links LinkedIn).
+- **Design:** warm cream background, terracotta/clay accent, Oswald + IBM Plex Sans/Mono typefaces, rounded cards. Redesigned 2026-08-02 (previous blueprint-themed design preserved at git tags `original-design` and `backup-2026-08-02` — roll back anytime via `git checkout original-design -- index.html assets/` or by publishing an earlier deploy in Netlify).
+- **Watermarks:** a collage of project photos behind the Featured Projects section, and a personal photo beside the contact form — both at `assets/img/projects/`.
+- **Content:** About, Expertise, AI-Powered Process Advisory, Career timeline (8 employers), 8 featured projects, Tools & Programs, Education, Awards, Contact, and a full 78-row detailed work-experience attachment table ("List of Experiences") — all real content, no placeholders.
+- **SEO basics:** `<title>` / `<meta name="description">` set, canonical URL set, Open Graph tags + `og-cover.jpg` set, favicon set, `Person` JSON-LD structured data present, `sameAs` links LinkedIn, X, and GitHub.
 - **Contact form:** Wired to Netlify Forms (`data-netlify="true"`) — no backend needed, submissions land under Netlify → Site settings → Forms.
 
 ## Google Search Console
