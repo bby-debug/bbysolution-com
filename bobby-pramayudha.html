@@ -117,6 +117,20 @@
   }
   .print-copyright{display:none;}
 
+  /* ---------- COVER / PAGE SWITCHING ---------- */
+  .nav-mark{cursor:pointer;}
+  .page-section{display:none;}
+  .page-section.active{display:block;}
+  .back-to-cover{
+    display:inline-flex;align-items:center;gap:8px;
+    font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;
+    color:var(--accent-deep);text-decoration:none;cursor:pointer;background:none;border:none;
+    padding:0;margin:0 0 20px;
+  }
+  .back-to-cover svg{width:14px;height:14px;}
+  footer .back-to-cover{color:var(--dark-soft);}
+  footer .back-to-cover:hover{color:#fff;}
+
   /* ---------- HERO ---------- */
   .hero{
     position:relative;
@@ -395,6 +409,8 @@
     @page{size:A4;margin:14mm 12mm;background:#fff;}
     html,body{width:210mm;background:#fff!important;}
     nav{display:none;}
+    .hero,.page-section{display:block!important;}
+    .back-to-cover,.back-to-cover-link{display:none!important;}
     .hero{padding-top:24px;break-after:page;}
     .hero::before{display:none;}
     section{padding:20px 0;}
@@ -494,7 +510,7 @@
   </div>
 </header>
 
-<section class="about" id="about">
+<section class="about page-section" id="about">
   <div class="wrap">
     <div class="sec-head">
       <div class="sec-tag">01 — Profile</div>
@@ -512,7 +528,7 @@
   </div>
 </section>
 
-<section id="expertise">
+<section class="page-section" id="expertise">
   <div class="wrap">
     <div class="sec-head">
       <div class="sec-tag">02 — Expertise</div>
@@ -539,7 +555,7 @@
   </div>
 </section>
 
-<section class="new-service" id="ai-advisory">
+<section class="new-service page-section" id="ai-advisory">
   <div class="wrap">
     <div class="sec-head">
       <div class="sec-tag">03 — New Offering</div>
@@ -563,7 +579,7 @@
   </div>
 </section>
 
-<section class="about" id="career">
+<section class="about page-section" id="career">
   <div class="wrap">
     <div class="sec-head">
       <div class="sec-tag">04 — Career</div>
@@ -641,7 +657,7 @@
   </div>
 </section>
 
-<section id="projects">
+<section class="page-section" id="projects">
   <div class="wrap">
     <div class="sec-head">
       <div class="sec-tag">05 — Selected Work</div>
@@ -702,7 +718,7 @@
   </div>
 </section>
 
-<section class="about" id="tools">
+<section class="about page-section" id="tools">
   <div class="wrap split-grid">
     <div>
       <div class="sec-head">
@@ -729,7 +745,7 @@
   </div>
 </section>
 
-<section id="recognition">
+<section class="page-section" id="recognition">
   <div class="wrap">
     <div class="sec-head">
       <div class="sec-tag">08 — Recognition</div>
@@ -755,7 +771,7 @@
   </div>
 </section>
 
-<footer id="contact">
+<footer class="page-section" id="contact">
   <img class="footer-portrait" src="assets/img/projects/footer-portrait.jpg" alt="" aria-hidden="true">
   <div class="wrap contact-inner">
     <div class="sec-tag" style="color:var(--accent);">Get in touch</div>
@@ -764,7 +780,7 @@
     <div class="contact-links">
       <a class="primary" href="mailto:bby.prm@gmail.com">bby.prm@gmail.com</a>
       <a href="https://www.linkedin.com/in/bobby-pramayudha-00a97737/" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="#about">Back to top</a>
+      <a href="#" class="back-to-cover-link">Back to top</a>
     </div>
     <div class="contact-phone">
       <a href="https://wa.me/62811884584" target="_blank" rel="noopener" aria-label="Chat on WhatsApp with +62-811-88-4584">
@@ -796,7 +812,7 @@
   <div class="copyright">© <span id="year"></span> Bobby Pramayudha — Portfolio built from 34+ years of structural engineering practice.</div>
 </footer>
 
-<section class="attach-section" id="attachment">
+<section class="attach-section page-section" id="attachment">
   <div class="wrap">
     <div class="sec-head">
       <div class="sec-tag">09 — Attachment</div>
@@ -939,9 +955,58 @@
     if (e.key === "Escape") closeAll();
   });
 
-  document.querySelectorAll(".portfolio-options a[href^='#']").forEach((link) => {
-    link.addEventListener("click", () => closeAll());
+  /* ---------- COVER / PAGE SWITCHING ---------- */
+  const hero = document.querySelector(".hero");
+  const pageSections = document.querySelectorAll(".page-section");
+
+  const backSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>';
+  pageSections.forEach((section) => {
+    const back = document.createElement(section.tagName === "FOOTER" ? "button" : "a");
+    back.className = "back-to-cover";
+    back.innerHTML = backSvg + "<span>Back to cover</span>";
+    if (back.tagName === "A") back.href = "#";
+    const wrap = section.querySelector(".wrap");
+    if (wrap) wrap.insertBefore(back, wrap.firstChild);
   });
+
+  function showCover() {
+    hero.style.display = "";
+    pageSections.forEach((s) => s.classList.remove("active"));
+    window.scrollTo(0, 0);
+    history.replaceState(null, "", location.pathname);
+  }
+
+  function showSection(id) {
+    const target = document.getElementById(id);
+    if (!target || !target.classList.contains("page-section")) return;
+    hero.style.display = "none";
+    pageSections.forEach((s) => s.classList.remove("active"));
+    target.classList.add("active");
+    window.scrollTo(0, 0);
+    history.replaceState(null, "", "#" + id);
+  }
+
+  document.querySelectorAll(".portfolio-options a[href^='#']").forEach((link) => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      showSection(link.getAttribute("href").slice(1));
+      closeAll();
+    });
+  });
+
+  document.querySelectorAll(".back-to-cover, .back-to-cover-link").forEach((el) => {
+    el.addEventListener("click", (e) => {
+      e.preventDefault();
+      showCover();
+    });
+  });
+
+  document.querySelector(".nav-mark").addEventListener("click", showCover);
+
+  const initialHash = location.hash.slice(1);
+  if (initialHash && document.getElementById(initialHash)?.classList.contains("page-section")) {
+    showSection(initialHash);
+  }
 </script>
 
 </body>
