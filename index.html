@@ -117,6 +117,20 @@
   }
   .print-copyright{display:none;}
 
+  /* ---------- COVER / PAGE SWITCHING ---------- */
+  .nav-mark{cursor:pointer;}
+  #contentPages{display:none;}
+  #contentPages.active{display:block;}
+  .back-to-cover{
+    display:inline-flex;align-items:center;gap:8px;
+    font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;
+    color:var(--accent-deep);text-decoration:none;cursor:pointer;background:var(--accent-soft);border:none;
+    padding:12px 32px;margin:0;width:100%;
+  }
+  .back-to-cover svg{width:14px;height:14px;}
+  footer .back-to-cover{color:var(--dark-soft);}
+  footer .back-to-cover:hover{color:#fff;}
+
   /* ---------- HERO ---------- */
   .hero{
     position:relative;
@@ -395,6 +409,8 @@
     @page{size:A4;margin:14mm 12mm;background:#fff;}
     html,body{width:210mm;background:#fff!important;}
     nav{display:none;}
+    .hero,#contentPages{display:block!important;}
+    .back-to-cover,.back-to-cover-link{display:none!important;}
     .hero{padding-top:24px;break-after:page;}
     .hero::before{display:none;}
     section{padding:20px 0;}
@@ -460,6 +476,7 @@
         <a href="#recognition">Awards</a>
         <a href="#contact">Contact</a>
         <a href="#attachment">Attachment</a>
+        <a href="#" id="portfolioBackToCover" class="back-to-cover-link">Back to Cover</a>
         <div class="portfolio-divider"></div>
         <div class="portfolio-label">Download</div>
         <a href="assets/Bobby-Pramayudha-CV.pdf" download="Bobby Pramayudha.pdf">
@@ -494,6 +511,11 @@
   </div>
 </header>
 
+<div id="contentPages">
+<button class="back-to-cover" id="backToCoverTop">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+  <span>Back to cover</span>
+</button>
 <section class="about" id="about">
   <div class="wrap">
     <div class="sec-head">
@@ -764,7 +786,7 @@
     <div class="contact-links">
       <a class="primary" href="mailto:bby.prm@gmail.com">bby.prm@gmail.com</a>
       <a href="https://www.linkedin.com/in/bobby-pramayudha-00a97737/" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="#about">Back to top</a>
+      <a href="#" class="back-to-cover-link">Back to top</a>
     </div>
     <div class="contact-phone">
       <a href="https://wa.me/62811884584" target="_blank" rel="noopener" aria-label="Chat on WhatsApp with +62-811-88-4584">
@@ -902,6 +924,7 @@
     </div>
   </div>
 </section>
+</div>
 
 <script>
   document.getElementById("year").textContent = new Date().getFullYear();
@@ -939,9 +962,51 @@
     if (e.key === "Escape") closeAll();
   });
 
-  document.querySelectorAll(".portfolio-options a[href^='#']").forEach((link) => {
-    link.addEventListener("click", () => closeAll());
+  /* ---------- COVER / CONTENT SWITCHING ---------- */
+  const hero = document.querySelector(".hero");
+  const contentPages = document.getElementById("contentPages");
+
+  function showCover() {
+    hero.style.display = "";
+    contentPages.classList.remove("active");
+    window.scrollTo(0, 0);
+    history.replaceState(null, "", location.pathname);
+  }
+
+  function showContent(id) {
+    hero.style.display = "none";
+    contentPages.classList.add("active");
+    if (id) {
+      const target = document.getElementById(id);
+      if (target) target.scrollIntoView({block: "start"});
+      history.replaceState(null, "", "#" + id);
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }
+
+  document.querySelectorAll(".portfolio-options a[href^='#']:not(#portfolioBackToCover)").forEach((link) => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      showContent(link.getAttribute("href").slice(1));
+      closeAll();
+    });
   });
+  document.getElementById("portfolioBackToCover").addEventListener("click", closeAll);
+
+  document.querySelectorAll(".back-to-cover, .back-to-cover-link").forEach((el) => {
+    el.addEventListener("click", (e) => {
+      e.preventDefault();
+      showCover();
+    });
+  });
+
+  document.querySelector(".nav-mark").addEventListener("click", showCover);
+
+  const initialHash = location.hash.slice(1);
+  if (initialHash && document.getElementById(initialHash)) {
+    showContent(initialHash);
+  }
 </script>
 
 </body>
