@@ -83,77 +83,39 @@
     backdrop-filter:blur(8px);
     border-bottom:1px solid var(--line);
   }
-  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:68px;}
-  .nav-right{display:flex;align-items:center;gap:14px;}
+  nav .wrap{display:flex;align-items:center;justify-content:flex-start;gap:14px;height:68px;}
   .nav-mark{font-family:'Oswald',sans-serif;font-weight:600;font-size:16px;display:flex;align-items:center;gap:10px;}
-  .nav-mark .id{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--accent-deep);background:var(--accent-soft);padding:3px 9px;border-radius:20px;}
-  .nav-links{display:flex;gap:6px;font-size:14px;font-family:'IBM Plex Sans',sans-serif;order:1;}
-  .nav-links a{text-decoration:none;color:var(--ink-soft);padding:8px 14px;border-radius:20px;transition:.2s;}
-  .nav-links a:hover{color:var(--accent-deep);background:var(--accent-soft);}
-
-  .download-menu{position:relative;order:2;}
-  .nav-download{
-    display:inline-flex;align-items:center;gap:8px;
-    font-family:'IBM Plex Sans',sans-serif;font-size:13px;font-weight:600;
-    background:var(--accent);color:#fff;border:none;
-    padding:9px 18px;border-radius:20px;cursor:pointer;transition:.2s;
-    white-space:nowrap;
+  .portfolio-menu{position:relative;}
+  .nav-portfolio{
+    display:inline-flex;align-items:center;gap:6px;
+    font-family:'IBM Plex Sans',sans-serif;font-size:14px;font-weight:500;color:var(--ink-soft);
+    background:none;border:none;cursor:pointer;padding:8px 14px;border-radius:20px;transition:.2s;
   }
-  .nav-download svg{width:14px;height:14px;flex-shrink:0;}
-  .nav-download:hover,.download-menu.open .nav-download{background:var(--accent-deep);}
-  @media(max-width:720px){
-    .nav-download span{display:none;}
-    .nav-download{padding:9px;}
-    .nav-download svg{margin:0;}
-  }
-  .download-options{
-    position:absolute;top:calc(100% + 8px);right:0;
+  .nav-portfolio svg{width:12px;height:12px;flex-shrink:0;transition:.2s;}
+  .nav-portfolio:hover,.portfolio-menu.open .nav-portfolio{color:var(--accent-deep);background:var(--accent-soft);}
+  .portfolio-menu.open .nav-portfolio svg{transform:rotate(180deg);}
+  .portfolio-options{
+    position:absolute;top:calc(100% + 8px);left:0;
     background:var(--white);border:1px solid var(--line);border-radius:14px;
     box-shadow:0 12px 30px rgba(51,47,40,0.14);
-    min-width:190px;padding:6px;
+    min-width:180px;padding:6px;
     opacity:0;visibility:hidden;transform:translateY(-6px);
     transition:.15s;z-index:60;
   }
-  .download-menu.open .download-options{opacity:1;visibility:visible;transform:translateY(0);}
-  .download-options a{
-    display:flex;align-items:center;gap:10px;
-    padding:10px 12px;border-radius:9px;text-decoration:none;
+  .portfolio-menu.open .portfolio-options{opacity:1;visibility:visible;transform:translateY(0);}
+  .portfolio-options a{
+    display:block;padding:10px 12px;border-radius:9px;text-decoration:none;
     font-family:'IBM Plex Sans',sans-serif;font-size:13.5px;color:var(--ink);
     transition:.15s;
   }
-  .download-options a:hover{background:var(--accent-soft);color:var(--accent-deep);}
-  .download-options svg{width:15px;height:15px;flex-shrink:0;color:var(--accent);}
-  .download-options .fmt{font-size:11px;color:var(--ink-soft);margin-left:auto;font-family:'IBM Plex Mono',monospace;}
-
-  .nav-toggle{
-    display:none;
-    flex-direction:column;
-    gap:4px;
-    background:none;
-    border:none;
-    cursor:pointer;
-    padding:8px;
-    order:3;
+  .portfolio-options a:hover{background:var(--accent-soft);color:var(--accent-deep);}
+  .portfolio-options a svg{width:14px;height:14px;flex-shrink:0;color:var(--accent);margin-right:8px;vertical-align:-2px;}
+  .portfolio-divider{height:1px;background:var(--line);margin:6px 4px;}
+  .portfolio-label{
+    font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.08em;
+    text-transform:uppercase;color:var(--ink-soft);padding:4px 12px 2px;
   }
-  .nav-toggle span{width:22px;height:2px;background:var(--ink);}
-
-  @media(max-width:720px){
-    .nav-links{
-      display:flex;
-      flex-direction:column;
-      gap:0;
-      position:absolute;
-      top:68px;left:0;right:0;
-      background:var(--paper);
-      border-bottom:1px solid var(--line);
-      max-height:0;
-      overflow:hidden;
-      transition:max-height .2s ease;
-    }
-    .nav-links.open{max-height:360px;}
-    .nav-links a{display:block;padding:14px 32px;border-bottom:1px solid var(--line);border-radius:0;}
-    .nav-toggle{display:flex;}
-  }
+  .print-copyright{display:none;}
 
   /* ---------- HERO ---------- */
   .hero{
@@ -430,8 +392,8 @@
 
   /* ---------- PRINT ---------- */
   @media print{
-    @page{size:A4;margin:14mm 12mm;}
-    html,body{width:210mm;}
+    @page{size:A4;margin:14mm 12mm;background:#fff;}
+    html,body{width:210mm;background:#fff!important;}
     nav{display:none;}
     .hero{padding-top:24px;break-after:page;}
     .hero::before{display:none;}
@@ -444,6 +406,16 @@
     .proj-grid,.recog-grid,.hero-stats,.timeline-wrap{break-before:avoid;}
     .proj-card,.exp-card,.service-card,.recog-card,.edu-box,
     .tl-item,.hero-stats>div,.tool-row,.keywords{break-inside:avoid;page-break-inside:avoid;}
+    .split-grid{display:block;}
+    .split-grid>div{break-inside:avoid;page-break-inside:avoid;margin-bottom:20px;}
+    .edu-col{break-before:page;page-break-before:always;padding-top:4px;}
+    footer .copyright{display:none;}
+    .print-copyright{
+      display:block!important;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:10px;
+      color:rgba(255,255,255,0.4);padding-top:12px;margin-top:12px;
+      border-top:1px solid rgba(255,255,255,0.15);
+      break-after:page;page-break-after:always;
+    }
     .expertise-grid,.service-grid,.recog-grid{gap:10px;}
     .proj-grid{gap:10px;}
     .exp-table-wrap{overflow-x:visible;border:none;box-shadow:none;}
@@ -456,7 +428,11 @@
     .exp-table tbody tr.exp-data td.scope{white-space:normal;}
     .proj-card:hover{transform:none;box-shadow:none;}
     a[href]{color:inherit;}
-    footer{break-before:page;}
+    footer{break-before:page;padding-top:24px;overflow:visible;}
+    .contact-form{margin-top:20px;gap:8px;}
+    .title-block{margin-top:20px;padding:12px 0;}
+    .tb-grid{break-after:avoid;}
+    .motto{margin-top:12px;font-size:20px;break-before:avoid;position:relative;}
     .footer-portrait{
       -webkit-print-color-adjust:exact;print-color-adjust:exact;
       left:auto;right:20mm;top:20mm;width:90px;height:120px;opacity:0.35;
@@ -468,35 +444,32 @@
 
 <nav>
   <div class="wrap">
-    <div class="nav-mark">BOBBY PRAMAYUDHA <span class="id">STR-ENG</span></div>
-    <div class="nav-right">
-      <div class="download-menu" id="downloadMenu">
-        <button class="nav-download" id="downloadBtn" aria-haspopup="true" aria-expanded="false" aria-label="Download">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-          <span>Download</span>
-        </button>
-        <div class="download-options">
-          <a href="assets/Bobby-Pramayudha-CV.pdf" download="Bobby Pramayudha.pdf">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
-            PDF <span class="fmt">.pdf</span>
-          </a>
-          <a href="bobby-pramayudha.html" download="Bobby Pramayudha.html">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
-            Web Page <span class="fmt">.html</span>
-          </a>
-        </div>
-      </div>
-      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
-        <span></span><span></span><span></span>
+    <div class="nav-mark">BOBBY PRAMAYUDHA</div>
+    <div class="portfolio-menu" id="portfolioMenu">
+      <button class="nav-portfolio" id="portfolioBtn" aria-haspopup="true" aria-expanded="false" aria-label="Portfolio sections">
+        <span>Portfolio</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
       </button>
-      <div class="nav-links">
+      <div class="portfolio-options">
         <a href="#about">About</a>
         <a href="#expertise">Expertise</a>
         <a href="#ai-advisory">AI Advisory</a>
         <a href="#career">Career</a>
         <a href="#projects">Projects</a>
+        <a href="#tools">Tools &amp; Education</a>
+        <a href="#recognition">Awards</a>
         <a href="#contact">Contact</a>
         <a href="#attachment">Attachment</a>
+        <div class="portfolio-divider"></div>
+        <div class="portfolio-label">Download</div>
+        <a href="assets/Bobby-Pramayudha-CV.pdf" download="Bobby Pramayudha.pdf">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+          PDF
+        </a>
+        <a href="bobby-pramayudha.html" download="Bobby Pramayudha.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+          Web Page (.html)
+        </a>
       </div>
     </div>
   </div>
@@ -725,7 +698,7 @@
   </div>
 </section>
 
-<section class="about">
+<section class="about" id="tools">
   <div class="wrap split-grid">
     <div>
       <div class="sec-head">
@@ -738,7 +711,7 @@
       <div class="tool-row"><span>STAAD.Pro</span><span>Structural analysis &amp; design</span></div>
       <div class="tool-row"><span>GRLWEAP</span><span>Pile driveability analysis</span></div>
     </div>
-    <div>
+    <div class="edu-col">
       <div class="sec-head">
         <div class="sec-tag">07 — Education</div>
         <h2>Academic Background</h2>
@@ -752,7 +725,7 @@
   </div>
 </section>
 
-<section>
+<section id="recognition">
   <div class="wrap">
     <div class="sec-head">
       <div class="sec-tag">08 — Recognition</div>
@@ -813,6 +786,7 @@
         <div class="tb-cell"><div class="k">Rev.</div><div class="v">2026 Edition</div></div>
       </div>
       <p class="motto">Pure Integrity in Every Solution</p>
+      <div class="print-copyright">© <span id="year2"></span> Bobby Pramayudha — Portfolio built from 34+ years of structural engineering practice.</div>
     </div>
   </div>
   <div class="copyright">© <span id="year"></span> Bobby Pramayudha — Portfolio built from 34+ years of structural engineering practice.</div>
@@ -927,37 +901,42 @@
 
 <script>
   document.getElementById("year").textContent = new Date().getFullYear();
-  const toggle = document.querySelector(".nav-toggle");
-  const links = document.querySelector(".nav-links");
-  toggle.addEventListener("click", () => {
-    const open = links.classList.toggle("open");
-    toggle.setAttribute("aria-expanded", String(open));
-  });
-  links.querySelectorAll("a").forEach((link) => {
-    link.addEventListener("click", () => {
-      links.classList.remove("open");
-      toggle.setAttribute("aria-expanded", "false");
+  document.getElementById("year2").textContent = new Date().getFullYear();
+
+  const dropdowns = [
+    {menu: document.getElementById("portfolioMenu"), btn: document.getElementById("portfolioBtn")}
+  ];
+
+  function closeAll(except) {
+    dropdowns.forEach(({menu, btn}) => {
+      if (menu !== except) {
+        menu.classList.remove("open");
+        btn.setAttribute("aria-expanded", "false");
+      }
+    });
+  }
+
+  dropdowns.forEach(({menu, btn}) => {
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const willOpen = !menu.classList.contains("open");
+      closeAll();
+      if (willOpen) {
+        menu.classList.add("open");
+        btn.setAttribute("aria-expanded", "true");
+      }
     });
   });
 
-  const downloadMenu = document.getElementById("downloadMenu");
-  const downloadBtn = document.getElementById("downloadBtn");
-  downloadBtn.addEventListener("click", (e) => {
-    e.stopPropagation();
-    const open = downloadMenu.classList.toggle("open");
-    downloadBtn.setAttribute("aria-expanded", String(open));
-  });
   document.addEventListener("click", (e) => {
-    if (!downloadMenu.contains(e.target)) {
-      downloadMenu.classList.remove("open");
-      downloadBtn.setAttribute("aria-expanded", "false");
-    }
+    if (!dropdowns.some(({menu}) => menu.contains(e.target))) closeAll();
   });
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
-      downloadMenu.classList.remove("open");
-      downloadBtn.setAttribute("aria-expanded", "false");
-    }
+    if (e.key === "Escape") closeAll();
+  });
+
+  document.querySelectorAll(".portfolio-options a[href^='#']").forEach((link) => {
+    link.addEventListener("click", () => closeAll());
   });
 </script>
 
