@@ -119,13 +119,13 @@
 
   /* ---------- COVER / PAGE SWITCHING ---------- */
   .nav-mark{cursor:pointer;}
-  .page-section{display:none;}
-  .page-section.active{display:block;}
+  #contentPages{display:none;}
+  #contentPages.active{display:block;}
   .back-to-cover{
     display:inline-flex;align-items:center;gap:8px;
     font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;
-    color:var(--accent-deep);text-decoration:none;cursor:pointer;background:none;border:none;
-    padding:0;margin:0 0 20px;
+    color:var(--accent-deep);text-decoration:none;cursor:pointer;background:var(--accent-soft);border:none;
+    padding:12px 32px;margin:0;width:100%;
   }
   .back-to-cover svg{width:14px;height:14px;}
   footer .back-to-cover{color:var(--dark-soft);}
@@ -409,7 +409,7 @@
     @page{size:A4;margin:14mm 12mm;background:#fff;}
     html,body{width:210mm;background:#fff!important;}
     nav{display:none;}
-    .hero,.page-section{display:block!important;}
+    .hero,#contentPages{display:block!important;}
     .back-to-cover,.back-to-cover-link{display:none!important;}
     .hero{padding-top:24px;break-after:page;}
     .hero::before{display:none;}
@@ -510,7 +510,12 @@
   </div>
 </header>
 
-<section class="about page-section" id="about">
+<div id="contentPages">
+<button class="back-to-cover" id="backToCoverTop">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+  <span>Back to cover</span>
+</button>
+<section class="about" id="about">
   <div class="wrap">
     <div class="sec-head">
       <div class="sec-tag">01 — Profile</div>
@@ -528,7 +533,7 @@
   </div>
 </section>
 
-<section class="page-section" id="expertise">
+<section id="expertise">
   <div class="wrap">
     <div class="sec-head">
       <div class="sec-tag">02 — Expertise</div>
@@ -555,7 +560,7 @@
   </div>
 </section>
 
-<section class="new-service page-section" id="ai-advisory">
+<section class="new-service" id="ai-advisory">
   <div class="wrap">
     <div class="sec-head">
       <div class="sec-tag">03 — New Offering</div>
@@ -579,7 +584,7 @@
   </div>
 </section>
 
-<section class="about page-section" id="career">
+<section class="about" id="career">
   <div class="wrap">
     <div class="sec-head">
       <div class="sec-tag">04 — Career</div>
@@ -657,7 +662,7 @@
   </div>
 </section>
 
-<section class="page-section" id="projects">
+<section id="projects">
   <div class="wrap">
     <div class="sec-head">
       <div class="sec-tag">05 — Selected Work</div>
@@ -718,7 +723,7 @@
   </div>
 </section>
 
-<section class="about page-section" id="tools">
+<section class="about" id="tools">
   <div class="wrap split-grid">
     <div>
       <div class="sec-head">
@@ -745,7 +750,7 @@
   </div>
 </section>
 
-<section class="page-section" id="recognition">
+<section id="recognition">
   <div class="wrap">
     <div class="sec-head">
       <div class="sec-tag">08 — Recognition</div>
@@ -771,7 +776,7 @@
   </div>
 </section>
 
-<footer class="page-section" id="contact">
+<footer id="contact">
   <img class="footer-portrait" src="assets/img/projects/footer-portrait.jpg" alt="" aria-hidden="true">
   <div class="wrap contact-inner">
     <div class="sec-tag" style="color:var(--accent);">Get in touch</div>
@@ -812,7 +817,7 @@
   <div class="copyright">© <span id="year"></span> Bobby Pramayudha — Portfolio built from 34+ years of structural engineering practice.</div>
 </footer>
 
-<section class="attach-section page-section" id="attachment">
+<section class="attach-section" id="attachment">
   <div class="wrap">
     <div class="sec-head">
       <div class="sec-tag">09 — Attachment</div>
@@ -918,6 +923,7 @@
     </div>
   </div>
 </section>
+</div>
 
 <script>
   document.getElementById("year").textContent = new Date().getFullYear();
@@ -955,41 +961,33 @@
     if (e.key === "Escape") closeAll();
   });
 
-  /* ---------- COVER / PAGE SWITCHING ---------- */
+  /* ---------- COVER / CONTENT SWITCHING ---------- */
   const hero = document.querySelector(".hero");
-  const pageSections = document.querySelectorAll(".page-section");
-
-  const backSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>';
-  pageSections.forEach((section) => {
-    const back = document.createElement(section.tagName === "FOOTER" ? "button" : "a");
-    back.className = "back-to-cover";
-    back.innerHTML = backSvg + "<span>Back to cover</span>";
-    if (back.tagName === "A") back.href = "#";
-    const wrap = section.querySelector(".wrap");
-    if (wrap) wrap.insertBefore(back, wrap.firstChild);
-  });
+  const contentPages = document.getElementById("contentPages");
 
   function showCover() {
     hero.style.display = "";
-    pageSections.forEach((s) => s.classList.remove("active"));
+    contentPages.classList.remove("active");
     window.scrollTo(0, 0);
     history.replaceState(null, "", location.pathname);
   }
 
-  function showSection(id) {
-    const target = document.getElementById(id);
-    if (!target || !target.classList.contains("page-section")) return;
+  function showContent(id) {
     hero.style.display = "none";
-    pageSections.forEach((s) => s.classList.remove("active"));
-    target.classList.add("active");
-    window.scrollTo(0, 0);
-    history.replaceState(null, "", "#" + id);
+    contentPages.classList.add("active");
+    if (id) {
+      const target = document.getElementById(id);
+      if (target) target.scrollIntoView({block: "start"});
+      history.replaceState(null, "", "#" + id);
+    } else {
+      window.scrollTo(0, 0);
+    }
   }
 
   document.querySelectorAll(".portfolio-options a[href^='#']").forEach((link) => {
     link.addEventListener("click", (e) => {
       e.preventDefault();
-      showSection(link.getAttribute("href").slice(1));
+      showContent(link.getAttribute("href").slice(1));
       closeAll();
     });
   });
@@ -1004,8 +1002,8 @@
   document.querySelector(".nav-mark").addEventListener("click", showCover);
 
   const initialHash = location.hash.slice(1);
-  if (initialHash && document.getElementById(initialHash)?.classList.contains("page-section")) {
-    showSection(initialHash);
+  if (initialHash && document.getElementById(initialHash)) {
+    showContent(initialHash);
   }
 </script>
 
