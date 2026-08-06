@@ -476,6 +476,7 @@
         <a href="#recognition">Awards</a>
         <a href="#contact">Contact</a>
         <a href="#attachment">Attachment</a>
+        <a href="#" id="portfolioBackToCover" class="back-to-cover-link">Back to Cover</a>
         <div class="portfolio-divider"></div>
         <div class="portfolio-label">Download</div>
         <a href="assets/Bobby-Pramayudha-CV.pdf" download="Bobby Pramayudha.pdf">
@@ -984,13 +985,14 @@
     }
   }
 
-  document.querySelectorAll(".portfolio-options a[href^='#']").forEach((link) => {
+  document.querySelectorAll(".portfolio-options a[href^='#']:not(#portfolioBackToCover)").forEach((link) => {
     link.addEventListener("click", (e) => {
       e.preventDefault();
       showContent(link.getAttribute("href").slice(1));
       closeAll();
     });
   });
+  document.getElementById("portfolioBackToCover").addEventListener("click", closeAll);
 
   document.querySelectorAll(".back-to-cover, .back-to-cover-link").forEach((el) => {
     el.addEventListener("click", (e) => {
